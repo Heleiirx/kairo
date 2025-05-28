@@ -5,14 +5,17 @@ import {
   getProjectById,
   updateProject,
   deleteProject,
+  getProjectsByUser,
 } from "../controllers/project.controller.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.post("/", createProject);
-router.get("/", getProjects);
-router.get("/:id", getProjectById);
-router.put("/:id", updateProject);
-router.delete("/:id", deleteProject);
+router.post("/", verifyToken, createProject);
+router.get("/", verifyToken, getProjects);
+router.get("/user/:userId", verifyToken, getProjectsByUser);
+router.get("/:id", verifyToken, getProjectById);
+router.put("/:id", verifyToken, updateProject);
+router.delete("/:id", verifyToken, deleteProject);
 
 export default router;

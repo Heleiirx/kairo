@@ -3,7 +3,17 @@ import Project from "../models/Project.js";
 // Crear un nuevo proyecto
 export const createProject = async (req, res) => {
   try {
-    const project = new Project(req.body);
+    const userId = req.user.id;
+
+    const { assignedUsers = [], ...projectData } = req.body;
+
+    const allAssignedUsers = new Set([...assignedUsers, userId]);
+
+    const project = new Project({
+      ...projectData,
+      assignedUsers: [...allAssignedUsers],
+    });
+
     const savedProject = await project.save();
     res.status(201).json(savedProject);
   } catch (error) {
@@ -21,9 +31,9 @@ export const getProjects = async (req, res) => {
     res.status(200).json(projects);
   } catch (error) {
     res.status(500).json({
-        message: "Error al obtener los proyectos",
-        error: error.message,
-      });
+      message: "Error al obtener los proyectos",
+      error: error.message,
+    });
   }
 };
 
@@ -62,9 +72,9 @@ export const updateProject = async (req, res) => {
     res.status(200).json(updatedProject);
   } catch (error) {
     res.status(500).json({
-        message: "Error al actualizar el proyecto",
-        error: error.message,
-      });
+      message: "Error al actualizar el proyecto",
+      error: error.message,
+    });
   }
 };
 
@@ -78,5 +88,20 @@ export const deleteProject = async (req, res) => {
     res.status(200).json({ message: "Proyecto eliminado con éxito" });
   } catch (error) {
     res.status(500).json({ message: "Error al eliminar el proyecto", error: error.message });
+  }
+};
+
+// Obtener proyectos asignados a un usuario
+export const getProjectsByUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const projects = await Project.find({ assignedUsers: userId });
+    res.status(200).json(projects);
+  } catch (error) {
+    res.status(500).json({
+        message: "Error al obtener proyectos del usuario",
+        error: error.message,
+      });
   }
 };
