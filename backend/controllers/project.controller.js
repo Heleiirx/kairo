@@ -1,4 +1,5 @@
 import Project from "../models/Project.js";
+import Task from "../models/Task.js";
 
 // Crear un nuevo proyecto
 export const createProject = async (req, res) => {
@@ -103,5 +104,88 @@ export const getProjectsByUser = async (req, res) => {
         message: "Error al obtener proyectos del usuario",
         error: error.message,
       });
+  }
+};
+
+// Obtener un proyecto con sus tareas
+export const getProjectWithTasks = async (req, res) => {
+  const { projectId } = req.params;
+
+  try {
+    const project = await Project.findById(projectId).populate("assignedUsers", "name email");
+    if (!project) {
+      return res.status(404).json({ message: "Proyecto no encontrado" });
+    }
+
+    const tasks = await Task.find({ project: projectId }).populate("assignedTo", "name email");
+
+    res.status(200).json({ project, tasks });
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener el proyecto con tareas", error: error.message });
+  }
+};
+
+// Asignar usuarios a un proyecto
+export const assignUsersToProject = async (req, res) => {
+  const { projectId } = req.params;
+  const { userIds } = req.body;
+
+  if (!Array.isArray(userIds)) {
+    return res.status(400).json({ message: "userIds debe ser un arreglo" });
+  }
+
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Proyecto no encontrado" });
+    }
+
+    const currentUserIds = project.assignedUsers.map(id => id.toString());
+    const alreadyAssigned = userIds.filter(id => currentUserIds.includes(id));
+
+    if (alreadyAssigned.length > 0) {
+      return res.status(400).json({
+        message: "Uno o más usuarios ya están asignados a este proyecto.",
+        alreadyAssigned,
+      });
+    }
+
+    const updatedUserIds = [...new Set([...currentUserIds, ...userIds])];
+    project.assignedUsers = updatedUserIds;
+    await project.save();
+
+    res.status(200).json({
+      message: "Usuarios asignados correctamente",
+      assignedUsers: project.assignedUsers,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error al asignar usuarios", error: error.message });
+  }
+};
+
+// Desasignar usuarios de un proyecto
+export const unassignUsersFromProject = async (req, res) => {
+  const { projectId } = req.params;
+  const { userIds } = req.body;
+
+  if (!Array.isArray(userIds)) {
+    return res.status(400).json({ message: "userIds debe ser un arreglo" });
+  }
+
+  try {
+    const project = await Project.findById(projectId);
+    if (!project) {
+      return res.status(404).json({ message: "Proyecto no encontrado" });
+    }
+
+    project.assignedUsers = project.assignedUsers.filter(
+      userId => !userIds.includes(userId.toString())
+    );
+
+    await project.save();
+
+    res.status(200).json({ message: "Usuarios desasignados correctamente", assignedUsers: project.assignedUsers });
+  } catch (error) {
+    res.status(500).json({ message: "Error al desasignar usuarios", error: error.message });
   }
 };

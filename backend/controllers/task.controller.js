@@ -1,5 +1,6 @@
 import Task from "../models/Task.js";
 import Project from "../models/Project.js";
+import { updateProjectProgress } from "../utils/projectHelpers.js";
 
 // Crear una nueva tarea en un proyecto
 export const createTask = async (req, res) => {
@@ -22,6 +23,8 @@ export const createTask = async (req, res) => {
       priority,
       // createdBy: req.userId,
     });
+
+    await updateProjectProgress(projectId);
 
     res.status(201).json(task);
   } catch (error) {
@@ -77,6 +80,8 @@ export const updateTask = async (req, res) => {
       return res.status(404).json({ message: "Task not found" });
     }
 
+    await updateProjectProgress(updatedTask.project);
+
     res.status(200).json(updatedTask);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -93,6 +98,8 @@ export const deleteTask = async (req, res) => {
     if (!deletedTask) {
       return res.status(404).json({ message: "Task not found" });
     }
+
+    await updateProjectProgress(deletedTask.project);
 
     res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
@@ -132,6 +139,8 @@ export const markTaskAsCompleted = async (req, res) => {
     if (!updatedTask) {
       return res.status(404).json({ message: "Tarea no encontrada" });
     }
+
+    await updateProjectProgress(updatedTask.project);
 
     res.status(200).json({ message: "Tarea marcada como completada", task: updatedTask });
   } catch (error) {
