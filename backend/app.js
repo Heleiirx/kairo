@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
+// import helmet from "helmet";
 
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import projectRouter from "./routes/project.routes.js";
 import taskRouter from "./routes/task.routes.js";
+
+import notFoundMiddleware from "./middlewares/notFoundMiddleware.js";
 
 // Express
 const app = express();
@@ -13,12 +16,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// app.use(helmet());
 
 // Rutas
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/projects", projectRouter);
 app.use("/api/tasks", taskRouter);
+app.use(notFoundMiddleware);
 
 // axios.post("/tasks", nuevaTarea, { headers: { Authorization: `Bearer ${token}` } });
 
