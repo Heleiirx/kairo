@@ -24,7 +24,11 @@ router.delete("/:id", verifyToken, deleteProject);
 // Relacionadas con usuarios
 router.get("/user/:userId", verifyToken, getProjectsByUser);
 router.patch("/:projectId/assign-users", verifyToken, assignUsersToProject);
-router.patch("/:projectId/unassign-users", verifyToken, unassignUsersFromProject);
+router.patch(
+  "/:projectId/unassign-users",
+  verifyToken,
+  unassignUsersFromProject
+);
 
 // Relacionadas con tareas
 router.get("/:projectId/full", verifyToken, getProjectWithTasks);

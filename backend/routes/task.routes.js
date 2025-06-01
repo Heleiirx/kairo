@@ -17,7 +17,11 @@ const router = express.Router();
 router.post("/project/:projectId", verifyToken, createTask);
 router.get("/project/:projectId", verifyToken, getTasksByProject);
 router.get("/project/:projectId/filter", verifyToken, filterTasksByProject);
-router.patch("/project/:projectId/:taskId/complete", verifyToken, markTaskAsCompleted);
+router.patch(
+  "/project/:projectId/:taskId/complete",
+  verifyToken,
+  markTaskAsCompleted
+);
 
 // Relacionadas con usuarios
 router.get("/user/:userId", verifyToken, getTasksByUser);

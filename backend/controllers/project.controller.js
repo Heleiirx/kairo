@@ -18,7 +18,7 @@ export const createProject = async (req, res) => {
     const savedProject = await project.save();
     res.status(201).json(savedProject);
   } catch (error) {
-    res.status(500).json({ message: "Error al crear el proyecto", error: error.message });
+    res.status(500).json({ message: "Error creating the project", error: error.message });
   }
 };
 
@@ -32,7 +32,7 @@ export const getProjects = async (req, res) => {
     res.status(200).json(projects);
   } catch (error) {
     res.status(500).json({
-      message: "Error al obtener los proyectos",
+      message: "Error obtaining projects",
       error: error.message,
     });
   }
@@ -46,11 +46,11 @@ export const getProjectById = async (req, res) => {
       "name email"
     );
     if (!project) {
-      return res.status(404).json({ message: "Proyecto no encontrado" });
+      return res.status(404).json({ message: "Project not found" });
     }
     res.status(200).json(project);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener el proyecto", error: error.message });
+    res.status(500).json({ message: "Error obtaining the project", error: error.message });
   }
 };
 
@@ -67,13 +67,13 @@ export const updateProject = async (req, res) => {
     ).populate("assignedUsers", "name email");
 
     if (!updatedProject) {
-      return res.status(404).json({ message: "Proyecto no encontrado" });
+      return res.status(404).json({ message: "Project not found" });
     }
 
     res.status(200).json(updatedProject);
   } catch (error) {
     res.status(500).json({
-      message: "Error al actualizar el proyecto",
+      message: "Error updating project",
       error: error.message,
     });
   }
@@ -84,11 +84,11 @@ export const deleteProject = async (req, res) => {
   try {
     const deletedProject = await Project.findByIdAndDelete(req.params.id);
     if (!deletedProject) {
-      return res.status(404).json({ message: "Proyecto no encontrado" });
+      return res.status(404).json({ message: "Project not found" });
     }
-    res.status(200).json({ message: "Proyecto eliminado con éxito" });
+    res.status(200).json({ message: "Project successfully removed" });
   } catch (error) {
-    res.status(500).json({ message: "Error al eliminar el proyecto", error: error.message });
+    res.status(500).json({ message: "Error deleting project", error: error.message });
   }
 };
 
@@ -101,9 +101,9 @@ export const getProjectsByUser = async (req, res) => {
     res.status(200).json(projects);
   } catch (error) {
     res.status(500).json({
-        message: "Error al obtener proyectos del usuario",
-        error: error.message,
-      });
+      message: "Error obtaining user projects",
+      error: error.message,
+    });
   }
 };
 
@@ -112,16 +112,25 @@ export const getProjectWithTasks = async (req, res) => {
   const { projectId } = req.params;
 
   try {
-    const project = await Project.findById(projectId).populate("assignedUsers", "name email");
+    const project = await Project.findById(projectId).populate(
+      "assignedUsers",
+      "name email"
+    );
     if (!project) {
-      return res.status(404).json({ message: "Proyecto no encontrado" });
+      return res.status(404).json({ message: "Project not found" });
     }
 
-    const tasks = await Task.find({ project: projectId }).populate("assignedTo", "name email");
+    const tasks = await Task.find({ project: projectId }).populate(
+      "assignedTo",
+      "name email"
+    );
 
     res.status(200).json({ project, tasks });
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener el proyecto con tareas", error: error.message });
+    res.status(500).json({
+        message: "Error obtaining the project with tasks",
+        error: error.message,
+      });
   }
 };
 
@@ -131,21 +140,21 @@ export const assignUsersToProject = async (req, res) => {
   const { userIds } = req.body;
 
   if (!Array.isArray(userIds)) {
-    return res.status(400).json({ message: "userIds debe ser un arreglo" });
+    return res.status(400).json({ message: "userIds must be an array" });
   }
 
   try {
     const project = await Project.findById(projectId);
     if (!project) {
-      return res.status(404).json({ message: "Proyecto no encontrado" });
+      return res.status(404).json({ message: "Project not found" });
     }
 
-    const currentUserIds = project.assignedUsers.map(id => id.toString());
-    const alreadyAssigned = userIds.filter(id => currentUserIds.includes(id));
+    const currentUserIds = project.assignedUsers.map((id) => id.toString());
+    const alreadyAssigned = userIds.filter((id) => currentUserIds.includes(id));
 
     if (alreadyAssigned.length > 0) {
       return res.status(400).json({
-        message: "Uno o más usuarios ya están asignados a este proyecto.",
+        message: "One or more users are already assigned to this project.",
         alreadyAssigned,
       });
     }
@@ -155,11 +164,11 @@ export const assignUsersToProject = async (req, res) => {
     await project.save();
 
     res.status(200).json({
-      message: "Usuarios asignados correctamente",
+      message: "Users correctly assigned",
       assignedUsers: project.assignedUsers,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error al asignar usuarios", error: error.message });
+    res.status(500).json({ message: "Error assigning users", error: error.message });
   }
 };
 
@@ -169,23 +178,26 @@ export const unassignUsersFromProject = async (req, res) => {
   const { userIds } = req.body;
 
   if (!Array.isArray(userIds)) {
-    return res.status(400).json({ message: "userIds debe ser un arreglo" });
+    return res.status(400).json({ message: "userIds must be an array" });
   }
 
   try {
     const project = await Project.findById(projectId);
     if (!project) {
-      return res.status(404).json({ message: "Proyecto no encontrado" });
+      return res.status(404).json({ message: "Project not found" });
     }
 
     project.assignedUsers = project.assignedUsers.filter(
-      userId => !userIds.includes(userId.toString())
+      (userId) => !userIds.includes(userId.toString())
     );
 
     await project.save();
 
-    res.status(200).json({ message: "Usuarios desasignados correctamente", assignedUsers: project.assignedUsers });
+    res.status(200).json({
+        message: "Properly unassigned users",
+        assignedUsers: project.assignedUsers,
+      });
   } catch (error) {
-    res.status(500).json({ message: "Error al desasignar usuarios", error: error.message });
+    res.status(500).json({ message: "Error disassigning users", error: error.message });
   }
 };

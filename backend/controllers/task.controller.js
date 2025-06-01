@@ -119,7 +119,7 @@ export const getTasksByUser = async (req, res) => {
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({
-      message: "Error al obtener las tareas del usuario",
+      message: "Error obtaining user tasks",
       error: error.message,
     });
   }
@@ -137,14 +137,14 @@ export const markTaskAsCompleted = async (req, res) => {
     );
 
     if (!updatedTask) {
-      return res.status(404).json({ message: "Tarea no encontrada" });
+      return res.status(404).json({ message: "Task not found" });
     }
 
     await updateProjectProgress(updatedTask.project);
 
-    res.status(200).json({ message: "Tarea marcada como completada", task: updatedTask });
+    res.status(200).json({ message: "Task marked as completed", task: updatedTask });
   } catch (error) {
-    res.status(500).json({ message: "Error al marcar la tarea", error: error.message });
+    res.status(500).json({ message: "Failed to mark task", error: error.message });
   }
 };
 
@@ -161,6 +161,6 @@ export const filterTasksByProject = async (req, res) => {
     const tasks = await Task.find(filter);
     res.status(200).json(tasks);
   } catch (error) {
-    res.status(500).json({ message: "Error al filtrar tareas", error: error.message });
+    res.status(500).json({ message: "Failed to filter tasks", error: error.message });
   }
 };

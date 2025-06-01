@@ -13,7 +13,7 @@ const startServer = async () => {
       console.log(`Server running on PORT: ${PORT}`);
     });
   } catch (error) {
-    console.error("Error al iniciar el servidor:", error.message);
+    console.error("Error starting server:", error.message);
     process.exit(1);
   }
 };
