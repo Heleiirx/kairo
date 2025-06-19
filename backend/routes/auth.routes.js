@@ -1,9 +1,27 @@
 import express from "express";
-import { registerUser, login } from "../controllers/auth.controller.js";
+import passport from "passport";
+import {
+  registerUser,
+  login,
+  googleCallback,
+} from "../controllers/auth.controller.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", login);
+
+router.get("/google", passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account", //Testing
+  })
+);
+
+router.get("/google/callback", passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/",
+  }),
+  googleCallback
+);
 
 export default router;
