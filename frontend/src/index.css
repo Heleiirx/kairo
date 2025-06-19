@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark] *));
+@theme {
+  --font-sans: Montserrat, ui-sans-serif;
+  --font-serif: Libre Caslon Display, ui-serif;
+
+  --color-*: initial;
+  --color-primary: #364C85;
+  --color-secondary: #95B2EE;
+  --color-base: #1E2A38;
+  --color-base-contrast: #CDFF9A;
+  --color-white: #F2F2F2;
+}
