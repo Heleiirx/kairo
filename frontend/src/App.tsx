@@ -1,18 +1,14 @@
-import { useDarkMode } from "./hooks/useDarkMode";
-
+import ContainerXL from "./components/ContainerXL";
+import ModalUserAuth from "./ui components/ModalUserAuth";
 function App() {
-  const [isDarkMode, toggleTheme] = useDarkMode();
 
   return (
-    <div className="w-screen bg-primary dark:bg-base dark:text-white">  
-      <h1>Landing Page</h1>
-      <button
-        onClick={toggleTheme}
-        className="px-4 py-2 border rounded dark:text-black"
-      >
-        Cambiar tema
-      </button>
+    // Edit class 
+    <ContainerXL className="flex flex-col items-center justify-center">  
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <ModalUserAuth />
     </div>
+    </ContainerXL>
   )
 }
 
