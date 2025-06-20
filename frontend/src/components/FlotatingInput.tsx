@@ -17,7 +17,7 @@ export default function FloatingInput({
   };
 
   return (
-    <div className="relative w-[200px] group">
+    <div className="relative min-w-[200px] w-64 group">
       {/* Input */}
       <input
         id={inputId}
