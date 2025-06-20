@@ -54,3 +54,24 @@ export const login = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
+export const googleCallback = async (req, res) => {
+  const user = req.user;
+
+  const token = jwt.sign(
+    { id: user._id, email: user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+
+  res.status(200).json({
+    message: "Google login successful",
+    token,
+    user: {
+      id: user._id,
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
+    },
+  });
+};
