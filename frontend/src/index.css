@@ -11,4 +11,32 @@
   --color-base: #1E2A38;
   --color-base-contrast: #CDFF9A;
   --color-white: #F2F2F2;
+
+  --animate-slide: slide 0.3s ease;
+}
+
+@layer utilities {
+  @keyframes inputHighlight {
+    from {
+      background: #5264AE;
+      width: 100px;
+    }
+    to {
+      background: transparent;
+      width: 0;
+    }
+  }
+
+  .animate-inputHighlight {
+    animation: inputHighlight 0.3s ease;
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 5000s ease-in-out 0s;
 }

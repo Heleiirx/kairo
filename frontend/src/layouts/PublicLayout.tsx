@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import TopNavBar from '../components/TopNavBar';
+import TopNavBar from '../ui components/TopNavBar';
 
 export default function PublicLayout() {
   return (
