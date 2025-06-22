@@ -1,3 +1,5 @@
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import ModalXL from "../components/ModalXL";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
@@ -6,11 +8,29 @@ import { useAuthModal } from "../context/AuthModalContext";
 import{ X }from "lucide-react";
 
 export default function ModalUserAuth() {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const handleToggle = () => setIsSignUp(!isSignUp);
     const { isOpen, isSignUp, closeModal, setIsSignUp } = useAuthModal();
+  
+    useEffect(() => {
+    if (isOpen) {
+        const modalPath = isSignUp ? "/signup" : "/signin";
+        // Si no estamos ya en esa ruta, navegamos
+        if (location.pathname !== modalPath) {
+        navigate(modalPath, { replace: true });
+        }
+    } else {
+        // Cuando el modal se cierra, volvemos a la ruta raíz
+        if (location.pathname === "/signup" || location.pathname === "/signin") {
+        navigate("/", { replace: true });
+        }
+    }
+    }, [isOpen, isSignUp]);
 
-  // Si el modal está cerrado, no renderizamos nada
-  if (!isOpen) return null;
+    if (!isOpen) return null;
 
     return (
         <ModalXL>

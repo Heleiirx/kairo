@@ -4,6 +4,7 @@ import ModalUserAuth from '../ui components/ModalUserAuth';
 import { AuthModalProvider } from '../context/AuthModalContext';
 
 export default function PublicLayout() {
+
   return (
     <AuthModalProvider>
       <TopNavBar />
