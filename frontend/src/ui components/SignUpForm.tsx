@@ -1,5 +1,7 @@
 import FloatingInput from "../components/FlotatingInput";
 import GoogleIcon from "../assets/google-icon.png";
+import { Form } from "react-router-dom";
+
 export default function SignUpForm() {
     return(
         <>
@@ -9,13 +11,13 @@ export default function SignUpForm() {
                 Sign up with Google
             </button>
             <p className="text-sm">or use your email for registration</p>
-            <form className="flex flex-col gap-6 w-1/3 items-center">
+            <Form method="post" action="/" className="flex flex-col gap-6 w-1/3 items-center">
                 <FloatingInput label="Email" type="email" name="email" />
                 <FloatingInput label="Password" type="password" name="password" />
-                <button className="bg-secondary text-base text-xl font-medium p-2 w-2/3 rounded">
+                <button type="submit" className="bg-secondary text-base text-xl font-medium p-2 w-2/3 rounded">
                     Sign up
                 </button>
-            </form>
+            </Form>
         </>
 
     )
