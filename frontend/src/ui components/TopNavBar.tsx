@@ -7,7 +7,7 @@ import type { JSX } from "react";
 
 export default function TopNavBar() :JSX.Element{
   const [_, toggleTheme] = useDarkMode();
-    const { openLogin, openSignUp } = useAuthModal();
+  const { openLogin, openSignUp } = useAuthModal();
 
     return(
         <div className="bg-primary w-full h-16 flex items-center justify-between px-8">
