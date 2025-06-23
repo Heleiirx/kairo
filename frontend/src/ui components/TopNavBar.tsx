@@ -2,10 +2,11 @@ import Logo from "./../assets/Logo.svg";
 import { Palette } from "lucide-react";
 import { useDarkMode } from "../hooks/useDarkMode";
 import { useAuthModal } from "../context/AuthModalContext";
+import type { JSX } from "react";
 
 
-export default function TopNavBar(){
-  const [isDarkMode, toggleTheme] = useDarkMode();
+export default function TopNavBar() :JSX.Element{
+  const [_, toggleTheme] = useDarkMode();
     const { openLogin, openSignUp } = useAuthModal();
 
     return(
