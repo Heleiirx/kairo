@@ -10,6 +10,7 @@ import NotFoundPage from './pages/NotFoundPage.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PrivateLayout from './layouts/PrivateLayout.tsx';
 import PublicLayout from './layouts/PublicLayout.tsx';
+import { loginAction, registerAction  } from './services/authActions.tsx';
 
 const router = createBrowserRouter([
   {
@@ -17,8 +18,8 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children:[
       { index: true, element: <App /> },
-      { path: 'signin', element: <App /> },
-      { path: 'signup', element: <App /> }
+      { path: 'signin', element: <App />, action: loginAction },
+      { path: 'signup', element: <App />, action: registerAction }
     ]
   },
   {
