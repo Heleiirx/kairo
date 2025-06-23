@@ -11,6 +11,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PrivateLayout from './layouts/PrivateLayout.tsx';
 import PublicLayout from './layouts/PublicLayout.tsx';
 import { loginAction, registerAction  } from './services/authActions.tsx';
+import RequireAuth from './hooks/useRequireAuth.tsx';
 
 const router = createBrowserRouter([
   {
@@ -26,10 +27,34 @@ const router = createBrowserRouter([
     path: '/',
     element: <PrivateLayout />,
     children: [
-      {path: 'clock', element: <Clock />},
-      {path: 'dashboard', element: <Dashboard />},
-      {path: 'proyects', element: <Proyects />},
-      {path: 'tasks', element: <Tasks />},
+      {
+        path: 'clock', 
+        element:
+        <RequireAuth>
+          <Clock />
+        </RequireAuth>
+      }, 
+      {
+        path: 'dashboard', 
+        element:
+        <RequireAuth>
+          <Dashboard />
+        </RequireAuth> 
+      },
+      {
+        path: 'proyects', 
+        element: 
+        <RequireAuth>
+          <Proyects />
+        </RequireAuth>
+      },
+      {
+        path: 'tasks', 
+        element: 
+        <RequireAuth>
+          <Tasks />
+        </RequireAuth>
+      },
     ]
   },
   {path: "*", element: <NotFoundPage />},
