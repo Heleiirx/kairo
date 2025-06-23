@@ -1,8 +1,10 @@
 import FloatingInput from "../components/FlotatingInput";
 import GoogleIcon from "../assets/google-icon.png";
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 
 export default function SignUpForm() {
+    const data = useActionData();
+
     return(
         <>
             <h2 className="text-3xl font-medium">Create Account</h2>
@@ -11,12 +13,13 @@ export default function SignUpForm() {
                 Sign up with Google
             </button>
             <p className="text-sm">or use your email for registration</p>
-            <Form method="post" action="/" className="flex flex-col gap-6 w-1/3 items-center">
+            <Form method="post" action="/signup" className="flex flex-col gap-6 w-1/3 items-center">
                 <FloatingInput label="Email" type="email" name="email" />
                 <FloatingInput label="Password" type="password" name="password" />
                 <button type="submit" className="bg-secondary text-base text-xl font-medium p-2 w-2/3 rounded">
                     Sign up
                 </button>
+                {data?.error && <p className="text-red-500">{data.error}</p>}
             </Form>
         </>
 
