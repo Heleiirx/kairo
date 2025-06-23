@@ -1,22 +1,52 @@
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import ModalXL from "../components/ModalXL";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 import smLogo from "../assets/Sm-logo.svg";
+import { useAuthModal } from "../context/AuthModalContext";
+import{ X }from "lucide-react";
 
 export default function ModalUserAuth() {
-    const [isSignUp, setIsSignUp] = useState(true);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const handleToggle = () => setIsSignUp(!isSignUp);
+    const { isOpen, isSignUp, closeModal, setIsSignUp } = useAuthModal();
+  
+    useEffect(() => {
+    if (isOpen) {
+        const modalPath = isSignUp ? "/signup" : "/signin";
+        // Si no estamos ya en esa ruta, navegamos
+        if (location.pathname !== modalPath) {
+        navigate(modalPath, { replace: true });
+        }
+    } else {
+        // Cuando el modal se cierra, volvemos a la ruta raíz
+        if (location.pathname === "/signup" || location.pathname === "/signin") {
+        navigate("/", { replace: true });
+        }
+    }
+    }, [isOpen, isSignUp]);
+
+    if (!isOpen) return null;
 
     return (
         <ModalXL>
-            <div className="flex h-full w-full overflow-hidden bg-base">
+            <button
+                className="z-100 absolute top-7 right-25 p-1 size-8 bg-base-contrast rounded-full flex items-center justify-center hover:bg-secondary/30 transition-colors duration-300"
+                onClick={closeModal}
+            >
+                <X className="text-primary"/>
+            </button>
+            <div className="relative flex w-6xl h-80 min-h-9/10 overflow-hidden bg-base rounded shadow-xl/30 text-white">
                 {/* Panel Izquierdo */}
                 <div
                     className={`
                     h-full w-2/3 bg-base flex-col justify-center items-center gap-6 
                     transform transition-transform duration-500 ease-in-out
-                    ${!isSignUp ? "translate-x-1/2 transition-opacity hidden" : "translate-x-0 flex slide-in-blurred-left 0.6s cubic-bezier(0.230, 1.000, 0.320, 1.000) both"}
+                    ${isSignUp ? "translate-x-0 flex" : "translate-x-1/2 hidden"}
                 `}>
                     <SignUpForm />
                 </div>
