@@ -1,14 +1,12 @@
 import { useState } from "react";
 
-export default function FloatingInput({
-  label,
-  type = "text",
-  name,
-}: {
+interface FloatingInputProps {
   label: string;
-  type?: string;
-  name?: string;
-}) {
+  type: string;
+  name: string;
+};
+
+export default function FloatingInput({ label, type, name }: FloatingInputProps) {
   const inputId = `input-${name}`;
   const [value, setValue] = useState("");
 
