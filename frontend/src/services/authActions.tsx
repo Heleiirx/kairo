@@ -10,9 +10,9 @@ export async function registerAction({ request }: any) {
   const data = { name, email, password };
 
   try {
-    console.log(data);
+    console.log("URL completa:", api.defaults.baseURL + "auth/register");
     // Send registration data to backend
-    const res = await api.post("auth/register", { data });
+    const res = await api.post("/auth/register", data, {withCredentials: true});
 
     // Get and save the data in zustand
     const { token, user } = res.data;
@@ -22,7 +22,7 @@ export async function registerAction({ request }: any) {
 
   } catch (error: any) {
     return {
-      error: error.response?.data?.message || "Error al crear la cuenta",
+      error: error || "Error al crear la cuenta",
     };
   }
 }
