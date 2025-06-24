@@ -15,15 +15,14 @@ export default function ModalUserAuth() {
     const handleToggle = () => setIsSignUp(!isSignUp);
     const { isOpen, isSignUp, closeModal, setIsSignUp } = useAuthModal();
   
+    // Change the URL when the modal opens or closes
     useEffect(() => {
     if (isOpen) {
         const modalPath = isSignUp ? "/signup" : "/signin";
-        // Si no estamos ya en esa ruta, navegamos
         if (location.pathname !== modalPath) {
         navigate(modalPath, { replace: true });
         }
     } else {
-        // Cuando el modal se cierra, volvemos a la ruta raíz
         if (location.pathname === "/signup" || location.pathname === "/signin") {
         navigate("/", { replace: true });
         }
@@ -41,7 +40,7 @@ export default function ModalUserAuth() {
                 <X className="text-primary"/>
             </button>
             <div className="relative flex w-6xl h-80 min-h-9/10 overflow-hidden bg-base rounded shadow-xl/30 text-white">
-                {/* Panel Izquierdo */}
+                {/* Form panel */}
                 <div
                     className={`
                     h-full w-2/3 bg-base flex-col justify-center items-center gap-6 
@@ -59,7 +58,7 @@ export default function ModalUserAuth() {
                     <SignInForm />
                 </div>
                 
-                {/* Panel Derecho */}
+                {/* Text panel */}
                 <div
                     className={`
                         h-full w-1/3 p-6 bg-primary flex flex-col justify-center items-center gap-4 text-white 
