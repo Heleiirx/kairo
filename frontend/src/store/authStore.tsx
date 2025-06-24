@@ -1,4 +1,3 @@
-// src/store/authStore.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -9,6 +8,7 @@ interface AuthState {
   logout: () => void;
 }
 
+// Authentication store using Zustand with persistence middleware
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
