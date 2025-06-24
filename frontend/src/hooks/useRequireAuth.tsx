@@ -7,6 +7,7 @@ interface RequireAuthProps {
   children: JSX.Element;
 }
 
+// Requires the user to be authenticated to access private routes
 export default function RequireAuth({ children }: RequireAuthProps) {
   const token = useAuthStore((state) => state.token);
   const location = useLocation();
