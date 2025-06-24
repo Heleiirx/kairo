@@ -3,6 +3,7 @@ import GoogleIcon from "../assets/google-icon.png";
 import { Form, useActionData } from "react-router-dom";
 
 export default function SignInForm() {
+    // Variable to store the action data returned from the server
     const data = useActionData();
 
     return(
