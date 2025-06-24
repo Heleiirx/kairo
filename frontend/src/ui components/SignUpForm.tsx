@@ -14,6 +14,7 @@ export default function SignUpForm() {
             </button>
             <p className="text-sm">or use your email for registration</p>
             <Form method="post" action="/signup" className="flex flex-col gap-6 w-1/3 items-center">
+                <FloatingInput label="Name" type="text" name="name" />
                 <FloatingInput label="Email" type="email" name="email" />
                 <FloatingInput label="Password" type="password" name="password" />
                 <button type="submit" className="bg-secondary text-base text-xl font-medium p-2 w-2/3 rounded">
