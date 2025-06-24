@@ -1,58 +1,52 @@
-// src/routes/auth/authActions.ts
 import { redirect } from "react-router-dom";
-// import api from "../services/api";
 import { useAuthStore } from "../store/authStore";
+import api from "../services/api";
 
-// export async function loginAction({ request }: any) {
-//   const formData = await request.formData();
-//   const email = formData.get("email");
-//   const password = formData.get("password");
-
-//   try {
-//     await api.post("/login", { email, password });
-//     authStore.getState().setToken(mockToken);
-//     return redirect("/dashboard");
-//   } catch (error) {
-//     return { error: "Credenciales inválidas" };
-//   }
-// }
-
-// export async function registerAction({ request }: any) {
-//   const formData = await request.formData();
-//   const email = formData.get("email");
-//   const password = formData.get("password");
-
-//   try {
-//     await api.post("/register", { email, password });
-//     useAuthStore.getState().login(token, user);
-//     return redirect("/dashboard");
-//   } catch (error) {
-//     return { error: "Error al crear la cuenta" };
-//   }
-// }
-
-// src/routes/auth/authActions.ts
 export async function registerAction({ request }: any) {
   const formData = await request.formData();
+  const name = formData.get("name");
   const email = formData.get("email");
   const password = formData.get("password");
+  const data = { name, email, password };
 
-  useAuthStore.getState().login(email, password);
-  console.log("Datos recibidos en signUp:", { email, password });
+  try {
+    console.log(data);
+    // Send registration data to backend
+    const res = await api.post("auth/register", { data });
 
-  // Solo para prueba: devuelve los datos a la vista
-  console.log( email, password,);
-  return redirect("/dashboard");
+    // Get and save the data in zustand
+    const { token, user } = res.data;
+    useAuthStore.getState().login(token, user);
+
+    return redirect("/dashboard");
+
+  } catch (error: any) {
+    return {
+      error: error.response?.data?.message || "Error al crear la cuenta",
+    };
+  }
 }
 
-// src/routes/auth/authActions.ts
 export async function loginAction({ request }: any) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
+  const data = { email, password };
 
-  console.log("Datos recibidos en loginAction:", { email, password });
+  try {
+    console.log(data);
+    // Send login data to backend
+    const res = await api.post("auth/login", { data });
 
-  // Solo para prueba: devuelve los datos a la vista
-  return { email, password, message: "Datos recibidos correctamente (test)" };
+    // Get and save data in zustand
+    const { token, user } = res.data;
+    useAuthStore.getState().login(token, user);
+
+    return redirect("/dashboard");
+
+  } catch (error: any) {
+    return {
+      error: error.response?.data?.message || "Credenciales inválidas",
+    };
+  }
 }
