@@ -1,7 +1,5 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { StateCreator } from "zustand";
-import type { PersistOptions } from "zustand/middleware";
 
 interface AuthState {
   token: string | null;
@@ -21,12 +19,6 @@ interface AuthState {
 }
 
 const STORAGE_KEY = 'auth-storage';
-
-type AuthStore = AuthState;
-type AuthPersist = (
-  config: StateCreator<AuthStore>,
-  options: PersistOptions<AuthStore>
-) => StateCreator<AuthStore>;
 
 // Crear el store
 export const useAuthStore = create<AuthState>()(
