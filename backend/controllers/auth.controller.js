@@ -64,16 +64,14 @@ export const googleCallback = async (req, res) => {
     { expiresIn: "30d" }
   );
 
-  res.status(200).json({
-    message: "Google login successful",
-    token,
-    user: {
-      id: user._id,
-      name: user.name,
-      lastname: user.lastname,
-      email: user.email,
-    },
+  const userJson = JSON.stringify({
+    id: user._id,
+    name: user.name,
+    lastname: user.lastname,
+    email: user.email,
   });
+
+  res.redirect(`http://localhost:5173/oauth/callback?token=${token}&user=${encodeURIComponent(userJson)}`);
 };
 
 export const changePassword = async (req, res) => {
