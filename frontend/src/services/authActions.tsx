@@ -15,6 +15,7 @@ export async function registerAction({ request }: any) {
     const res = await api.post("/auth/register", data, {withCredentials: true});
 
     // Get and save the data in zustand
+    console.log("Respuesta del servidor:", res.data);
     const { token, user } = res.data;
     useAuthStore.getState().login(token, user);
 
@@ -36,7 +37,7 @@ export async function loginAction({ request }: any) {
   try {
     console.log(data);
     // Send login data to backend
-    const res = await api.post("auth/login", { data });
+    const res = await api.post("/auth/login", data );
 
     // Get and save data in zustand
     const { token, user } = res.data;
