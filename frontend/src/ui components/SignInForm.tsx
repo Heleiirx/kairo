@@ -3,13 +3,19 @@ import GoogleIcon from "../assets/google-icon.png";
 import { Form, useActionData } from "react-router-dom";
 
 export default function SignInForm() {
+    const handleOAuthLogin = () => {
+        window.location.href = "http://localhost:8080/api/auth/google";
+    };
     // Variable to store the action data returned from the server
     const data = useActionData();
 
     return(
         <>
             <h2 className="text-3xl font-medium">Sign in to Kairo</h2>
-            <button className="border border-white p-2 w-1/3 max-w-56 rounded flex items-center justify-center gap-4 text-sm">
+            <button 
+                className="border border-white p-2 w-1/3 max-w-56 rounded flex items-center justify-center gap-4 text-sm"
+                onClick={handleOAuthLogin}
+            >
                 <img src={GoogleIcon} alt="Icono de google" className="size-6" />
                 Sign in with Google
             </button>
