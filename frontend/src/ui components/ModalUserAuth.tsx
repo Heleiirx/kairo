@@ -14,7 +14,6 @@ export default function ModalUserAuth() {
 
     const handleToggle = () => setIsSignUp(!isSignUp);
     const { isOpen, isSignUp, closeModal, setIsSignUp } = useAuthModal();
-  
     // Change the URL when the modal opens or closes
     useEffect(() => {
     if (isOpen) {
