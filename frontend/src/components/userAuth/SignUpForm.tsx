@@ -1,5 +1,5 @@
-import FloatingInput from "../components/FlotatingInput";
-import GoogleIcon from "../assets/google-icon.png";
+import FloatingInput from "../FlotatingInput";
+import GoogleIcon from "../../assets/google-icon.png";
 import { Form, useActionData } from "react-router-dom";
 
 export default function SignUpForm() {

@@ -1,7 +1,7 @@
-import Logo from "./../assets/Logo.svg";
+import Logo from "../../assets/Logo.svg";
 import { Palette } from "lucide-react";
-import { useDarkMode } from "../hooks/useDarkMode";
-import { useAuthModal } from "../context/AuthModalContext";
+import { useDarkMode } from "../../hooks/useDarkMode";
+import { useAuthModal } from "../../context/AuthModalContext";
 import type { JSX } from "react";
 
 

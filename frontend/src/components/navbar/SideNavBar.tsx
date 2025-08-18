@@ -1,5 +1,5 @@
 import { Grid3X3, CheckSquare, Folder, Clock, TrendingUp, Settings, LogOut } from "lucide-react";
-import SmLogo from "../assets/Sm-logo.svg";
+import SmLogo from "../../assets/Sm-logo.svg";
 
 export default function SideNavBar(){
     return(

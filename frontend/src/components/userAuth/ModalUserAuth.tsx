@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import ModalXL from "../components/ModalXL";
+import ModalXL from "../ModalXL";
 import SignInForm from "./SignInForm";
-import SignUpForm from "./SignUpForm";
-import smLogo from "../assets/Sm-logo.svg";
-import { useAuthModal } from "../context/AuthModalContext";
+import SignUpForm from "../userAuth/SignUpForm";
+import smLogo from "../../assets/Sm-logo.svg";
+import { useAuthModal } from "../../context/AuthModalContext";
 import{ X }from "lucide-react";
 
 export default function ModalUserAuth() {
