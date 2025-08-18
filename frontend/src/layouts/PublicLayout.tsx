@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import TopNavBar from '../ui components/TopNavBar';
-import ModalUserAuth from '../ui components/ModalUserAuth';
+import TopNavBar from '../components/navbar/TopNavBar';
+import ModalUserAuth from '../components/userAuth/ModalUserAuth';
 import { AuthModalProvider } from '../context/AuthModalContext';
 
 export default function PublicLayout() {

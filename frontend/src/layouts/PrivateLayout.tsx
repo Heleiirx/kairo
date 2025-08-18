@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import SideNavBar from '../ui components/SideNavBar';
+import SideNavBar from '../components/navbar/SideNavBar';
 import ContainerXL from '../components/ContainerXL';
 
 export default function PrivateLayout() {
