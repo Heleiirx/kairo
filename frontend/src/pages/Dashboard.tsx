@@ -5,11 +5,11 @@ function Dashboard() {
   const logout = useAuthStore((state) => state.logout);
 
   return (
-    <>  
+    <div className="text-white">  
       <h1>Dashboard</h1>
       <h2>Hola, {user?.name} </h2>
       <button onClick={logout}>Cerrar sesión</button>
-    </>
+    </div>
   )
 }
 
