@@ -2,7 +2,11 @@ import { Search, Plus } from "lucide-react";
 import { FilterButton } from "./FiltersButton";
 import { useState } from "react";
 
-export function FilterControls() {
+interface FilterControlsProps {
+  onNewTaskClick: () => void;
+}
+
+export function FilterControls({ onNewTaskClick }: FilterControlsProps) {
   const [activeButton, setActiveButton] = useState<string | null>('Last updated');
 
   const handleButtonClick = (buttonName: string) => {
@@ -42,7 +46,7 @@ export function FilterControls() {
         </button>
       </div>
 
-      <button className="flex items-center justify-center me-6 gap-2 w-fill rounded text-white p-2 hover:bg-secondary/30">
+      <button onClick={onNewTaskClick} className="flex items-center justify-center me-6 gap-2 w-fill rounded text-white p-2 hover:bg-secondary/30">
         <Plus className="w-4 h-4" />
         New task
       </button>
