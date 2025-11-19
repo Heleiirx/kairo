@@ -5,6 +5,30 @@ import NewTaskModal from "../components/tasks/NewTaskModal";
 
 function Tasks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tasks, setTasks] = useState([{
+    id: 1,
+    name: "Lorem ipsum jmoso",
+    time: "1:26 hrs",
+    priority: "High",
+    project: "History",
+    category: "School",
+    completed: false,
+  },
+  {
+    id: 2,
+    name: "Lorem ipsum jmoso",
+    time: "1:26 hrs",
+    priority: "Medium",
+    project: "History",
+    category: "School",
+    completed: false,
+  }]);
+
+  const handleToggleComplete = (id: number) => {
+    setTasks(tasks.map(task => 
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
+  };
 
   return (
     <div className="text-white pt-6 py-4">  
@@ -14,24 +38,7 @@ function Tasks() {
       </div>
       <FilterControls onNewTaskClick={() => setIsModalOpen(true)} />
       <NewTaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      <TaskTable tasks={[{
-      id: 1,
-      name: "Lorem ipsum jmoso",
-      time: "1:26 hrs",
-      priority: "High",
-      project: "History",
-      category: "School",
-      completed: false,
-    },
-    {
-      id: 2,
-      name: "Lorem ipsum jmoso",
-      time: "1:26 hrs",
-      priority: "Medium",
-      project: "History",
-      category: "School",
-      completed: false,
-    },]} />
+      <TaskTable tasks={tasks} onToggleComplete={handleToggleComplete} />
     </div>
   )
 }

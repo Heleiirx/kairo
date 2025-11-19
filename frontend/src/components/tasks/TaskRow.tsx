@@ -19,7 +19,7 @@ interface TaskRowProps {
 
 export function TaskRow({ task, onToggleComplete }: TaskRowProps) {
   return (
-    <div className={`px-6 py-4 hover:bg-slate-600 transition-colors ${task.completed ? "opacity-50" : ""}`}>
+    <div className={`px-6 py-4 transition-colors ${task.completed ? "opacity-60 bg-slate-700/50" : "hover:bg-slate-600"}`}>
       <div className="grid grid-cols-12 gap-4 items-center">
         <div className="col-span-4 flex items-center space-x-3">
           <Checkbox
