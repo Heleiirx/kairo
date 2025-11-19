@@ -3,22 +3,25 @@ interface PriorityIndicatorProps {
   }
   
   export function PriorityIndicator({ priority }: PriorityIndicatorProps) {
-    const getPriorityColor = (priority: string) => {
+    const getPriorityStyle = (priority: string) => {
       switch (priority) {
         case "High":
-          return "bg-red-500"
+          return { backgroundColor: "#ef4444" } // red-500
         case "Medium":
-          return "bg-green-500"
+          return { backgroundColor: "#eab308" } // yellow-500
         case "Low":
-          return "bg-yellow-500"
+          return { backgroundColor: "#22c55e" } // green-500
         default:
-          return "bg-gray-500"
+          return { backgroundColor: "#6b7280" } // gray-500
       }
     }
   
     return (
       <div className="flex items-center space-x-2">
-        <div className={`w-2 h-2 rounded-full ${getPriorityColor(priority)}`}></div>
+        <div 
+          className="w-2 h-2 rounded-full" 
+          style={getPriorityStyle(priority)}
+        ></div>
         <span className="text-slate-300">{priority}</span>
       </div>
     )
