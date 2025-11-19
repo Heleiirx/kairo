@@ -1,20 +1,16 @@
 import { useState } from "react";
 import ModalXL from "../ModalXL";
 import FlotatingInput from "../FlotatingInput";
+import { createTask } from "../../services/tasksActions";
 
 interface NewTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onCreateTask?: (task: {
-    name: string;
-    description: string;
-    project: string;
-    category: string;
-    priority: string;
-  }) => void;
+  projectId: string;
+  onTaskCreated?: () => void;
 }
 
-function NewTaskModal({ isOpen, onClose, onCreateTask }: NewTaskModalProps) {
+function NewTaskModal({ isOpen, onClose, projectId, onTaskCreated }: NewTaskModalProps) {
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -23,6 +19,7 @@ function NewTaskModal({ isOpen, onClose, onCreateTask }: NewTaskModalProps) {
     priority: "High",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
@@ -30,22 +27,48 @@ function NewTaskModal({ isOpen, onClose, onCreateTask }: NewTaskModalProps) {
     setForm({ ...form, [e.target.id.replace("task", "").toLowerCase()]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const mapPriorityToBackend = (priority: string) => {
+    const priorityMap: { [key: string]: "baja" | "media" | "alta" } = {
+      "Low": "baja",
+      "Medium": "media",
+      "High": "alta"
+    };
+    return priorityMap[priority] || "media";
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim()) {
       setError("Task name is required.");
       return;
     }
+    
     setError("");
-    onCreateTask?.(form);
-    setForm({
-      name: "",
-      description: "",
-      project: "",
-      category: "",
-      priority: "High",
-    });
-    onClose();
+    setLoading(true);
+
+    try {
+      await createTask(projectId, {
+        title: form.name,
+        description: form.description,
+        priority: mapPriorityToBackend(form.priority),
+        status: "pendiente"
+      });
+
+      setForm({
+        name: "",
+        description: "",
+        project: "",
+        category: "",
+        priority: "High",
+      });
+      
+      onTaskCreated?.();
+      onClose();
+    } catch (err: any) {
+      setError(err.message || "Failed to create task");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -103,8 +126,12 @@ function NewTaskModal({ isOpen, onClose, onCreateTask }: NewTaskModalProps) {
           <button type="button" onClick={onClose} className="py-2 px-4 rounded-md bg-gray-600 hover:bg-gray-700 transition-colors">
             Cancel
           </button>
-          <button type="submit" className="py-2 px-4 rounded-md bg-secondary text-base hover:bg-blue-500 transition-colors">
-            Create Task
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="py-2 px-4 rounded-md bg-secondary text-base hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? "Creating..." : "Create Task"}
           </button>
         </div>
       </form>
