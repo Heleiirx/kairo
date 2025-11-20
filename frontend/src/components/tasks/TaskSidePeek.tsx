@@ -1,5 +1,6 @@
 import { X, Calendar, User, Flag } from "lucide-react";
 import { useEffect } from "react";
+import { useViewport } from "../../hooks/useViewport";
 
 interface Task {
   id: string;
@@ -26,6 +27,8 @@ interface TaskSidePeekProps {
 }
 
 export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
+  const { isMobile } = useViewport();
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -104,7 +107,7 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
         onClick={onClose}
       />
 
-      {/* Side Peek Panel */}
+      {/* Side Peek Panel - Full screen on mobile, side panel on desktop */}
       <div
         style={{
           position: 'fixed',
@@ -112,9 +115,9 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
           right: 0,
           height: '100%',
           width: '100%',
-          maxWidth: '500px',
+          maxWidth: isMobile ? '100%' : '500px',
           backgroundColor: '#1E2A38',
-          borderLeft: '1px solid rgb(71 85 105)',
+          borderLeft: isMobile ? 'none' : '1px solid rgb(71 85 105)',
           boxShadow: '-4px 0 24px rgba(0, 0, 0, 0.3)',
           zIndex: 50,
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
@@ -129,17 +132,17 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
           }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-slate-600"
+          <div className="flex items-center justify-between p-4 md:p-6 border-b border-slate-600"
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(-16px)',
               opacity: isOpen ? 1 : 0,
               transition: 'all 300ms ease-out 150ms'
             }}
           >
-            <h2 className="text-xl font-medium text-white">Task Details</h2>
+            <h2 className="text-lg md:text-xl font-medium text-white">Task Details</h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-slate-600 rounded"
+              className="p-2 hover:bg-slate-600 rounded min-h-[44px] min-w-[44px] flex items-center justify-center"
               style={{ transition: 'all 200ms ease-in-out' }}
               onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(90deg)'}
               onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(0deg)'}
@@ -149,7 +152,7 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6"
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-6"
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(16px)',
               opacity: isOpen ? 1 : 0,
@@ -158,29 +161,29 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
           >
             {/* Title */}
             <div>
-              <label className="text-sm font-medium text-slate-400 block mb-2">
+              <label className="text-xs md:text-sm font-medium text-slate-400 block mb-2">
                 Title
               </label>
-              <h3 className="text-lg text-white">{task.title}</h3>
+              <h3 className="text-base md:text-lg text-white">{task.title}</h3>
             </div>
 
             {/* Description */}
             {task.description && (
               <div>
-                <label className="text-sm font-medium text-slate-400 block mb-2">
+                <label className="text-xs md:text-sm font-medium text-slate-400 block mb-2">
                   Description
                 </label>
-                <p className="text-white">{task.description}</p>
+                <p className="text-sm md:text-base text-white">{task.description}</p>
               </div>
             )}
 
             {/* Status */}
             <div>
-              <label className="text-sm font-medium text-slate-400 block mb-2">
+              <label className="text-xs md:text-sm font-medium text-slate-400 block mb-2">
                 Status
               </label>
               <span
-                className={`inline-flex items-center px-3 py-1 rounded-md text-sm ${
+                className={`inline-flex items-center px-2 md:px-3 py-1 rounded-md text-xs md:text-sm ${
                   task.status === "completada"
                     ? "bg-green-500/20 text-green-400"
                     : task.status === "en progreso"
@@ -194,34 +197,34 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
 
             {/* Priority */}
             <div>
-              <label className="text-sm font-medium text-slate-400 block mb-2 flex items-center gap-2">
+              <label className="text-xs md:text-sm font-medium text-slate-400 block mb-2 flex items-center gap-2">
                 <Flag className="w-4 h-4" />
                 Priority
               </label>
-              <span className={`font-medium ${getPriorityColor(task.priority)}`}>
+              <span className={`font-medium text-sm md:text-base ${getPriorityColor(task.priority)}`}>
                 {getPriorityLabel(task.priority)}
               </span>
             </div>
 
             {/* Due Date */}
             <div>
-              <label className="text-sm font-medium text-slate-400 block mb-2 flex items-center gap-2">
+              <label className="text-xs md:text-sm font-medium text-slate-400 block mb-2 flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 Due Date
               </label>
-              <p className="text-white">{formatDate(task.dueDate)}</p>
+              <p className="text-sm md:text-base text-white">{formatDate(task.dueDate)}</p>
             </div>
 
             {/* Assigned To */}
             {task.assignedTo && (
               <div>
-                <label className="text-sm font-medium text-slate-400 block mb-2 flex items-center gap-2">
+                <label className="text-xs md:text-sm font-medium text-slate-400 block mb-2 flex items-center gap-2">
                   <User className="w-4 h-4" />
                   Assigned To
                 </label>
                 <div className="text-white">
-                  <p className="font-medium">{task.assignedTo.name}</p>
-                  <p className="text-sm text-slate-400">{task.assignedTo.email}</p>
+                  <p className="text-sm md:text-base font-medium">{task.assignedTo.name}</p>
+                  <p className="text-xs md:text-sm text-slate-400">{task.assignedTo.email}</p>
                 </div>
               </div>
             )}
@@ -229,10 +232,10 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
             {/* Project */}
             {task.project && (
               <div>
-                <label className="text-sm font-medium text-slate-400 block mb-2">
+                <label className="text-xs md:text-sm font-medium text-slate-400 block mb-2">
                   Project
                 </label>
-                <p className="text-white">{task.project.title}</p>
+                <p className="text-sm md:text-base text-white">{task.project.title}</p>
               </div>
             )}
 
@@ -254,7 +257,7 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
           </div>
 
           {/* Footer Actions */}
-          <div className="p-6 border-t border-slate-600"
+          <div className="p-4 md:p-6 border-t border-slate-600"
             style={{
               transform: isOpen ? 'translateY(0)' : 'translateY(16px)',
               opacity: isOpen ? 1 : 0,
@@ -263,7 +266,7 @@ export function TaskSidePeek({ task, isOpen, onClose }: TaskSidePeekProps) {
           >
             <button
               onClick={onClose}
-              className="w-full py-2 px-4 rounded-md text-base"
+              className="w-full py-2 px-4 rounded-md text-base min-h-[44px]"
               style={{
                 backgroundColor: '#95B2EE',
                 color: '#1E2A38',

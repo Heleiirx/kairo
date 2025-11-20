@@ -175,40 +175,44 @@ function ProjectDetails() {
   const sortedTasks = useMemo(() => sortByCompletion(displayTasks), [displayTasks]);
 
   return (
-    <div className="w-full min-h-screen bg-base text-white p-6">
+    <div className="w-full min-h-screen bg-base text-white p-4 md:p-6">
       {/* Back Button */}
       <button
         onClick={() => navigate("/proyects")}
-        className="flex items-center gap-2 text-white/60 hover:text-white mb-6 transition-colors"
+        className="flex items-center gap-2 text-white/60 hover:text-white mb-4 md:mb-6 transition-colors min-h-[44px]"
       >
         <ArrowLeft className="w-5 h-5" />
         <span>Back to Projects</span>
       </button>
 
       {/* Project Header */}
-      <div className="bg-primary rounded-lg p-6 mb-6">
-        <div className="flex items-start justify-between mb-4">
+      <div className="bg-primary rounded-lg p-4 md:p-6 mb-4 md:mb-6">
+        {/* Stack header, actions, and info vertically on mobile */}
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-4">
           <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-medium">{project.title}</h1>
-              <span className="text-xs px-2 py-1 rounded bg-white/10 text-white/80">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+              <h1 className="text-2xl md:text-3xl font-medium">{project.title}</h1>
+              <span className="text-xs px-2 py-1 rounded bg-white/10 text-white/80 self-start">
                 {project.category}
               </span>
             </div>
-            <p className="text-white/70 text-base">{project.description}</p>
+            <p className="text-white/70 text-sm md:text-base">{project.description}</p>
           </div>
-          <div className="flex gap-2">
-            <button className="p-2 hover:bg-white/10 rounded transition-colors">
+          {/* Make action buttons full-width on mobile */}
+          <div className="flex gap-2 w-full md:w-auto">
+            <button className="flex-1 md:flex-none p-2 md:p-2 min-h-[44px] hover:bg-white/10 rounded transition-colors flex items-center justify-center gap-2">
               <Edit2 className="w-5 h-5 text-white/60" />
+              <span className="md:hidden text-white/60">Edit</span>
             </button>
-            <button className="p-2 hover:bg-red-500/20 rounded transition-colors">
+            <button className="flex-1 md:flex-none p-2 md:p-2 min-h-[44px] hover:bg-red-500/20 rounded transition-colors flex items-center justify-center gap-2">
               <Trash2 className="w-5 h-5 text-red-400" />
+              <span className="md:hidden text-red-400">Delete</span>
             </button>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="mb-6">
+        <div className="mb-4 md:mb-6">
           <div className="flex justify-between text-sm mb-2">
             <span className="text-white/60">Progress</span>
             <span className="text-white font-medium">{project.progress}%</span>
@@ -225,54 +229,54 @@ function ProjectDetails() {
           </div>
         </div>
 
-        {/* Project Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white/5 rounded-lg p-4">
+        {/* Project Stats Grid - 2 columns on mobile, 4 columns on tablet/desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="bg-white/5 rounded-lg p-3 md:p-4">
             <div className="flex items-center gap-2 text-white/60 mb-2">
               <Flag className="w-4 h-4" />
-              <span className="text-sm">Status</span>
+              <span className="text-xs md:text-sm">Status</span>
             </div>
-            <span className={`inline-flex items-center px-3 py-1 rounded-md text-sm ${getStatusColor(project.status)}`}>
+            <span className={`inline-flex items-center px-2 md:px-3 py-1 rounded-md text-xs md:text-sm ${getStatusColor(project.status)}`}>
               {getStatusLabel(project.status)}
             </span>
           </div>
 
-          <div className="bg-white/5 rounded-lg p-4">
+          <div className="bg-white/5 rounded-lg p-3 md:p-4">
             <div className="flex items-center gap-2 text-white/60 mb-2">
               <Flag className="w-4 h-4" />
-              <span className="text-sm">Priority</span>
+              <span className="text-xs md:text-sm">Priority</span>
             </div>
-            <span className={`font-medium ${getPriorityColor(project.priority)}`}>
+            <span className={`font-medium text-sm md:text-base ${getPriorityColor(project.priority)}`}>
               {getPriorityLabel(project.priority)}
             </span>
           </div>
 
-          <div className="bg-white/5 rounded-lg p-4">
+          <div className="bg-white/5 rounded-lg p-3 md:p-4">
             <div className="flex items-center gap-2 text-white/60 mb-2">
               <Clock className="w-4 h-4" />
-              <span className="text-sm">Time Spent</span>
+              <span className="text-xs md:text-sm">Time Spent</span>
             </div>
-            <span className="text-white font-medium">{project.timeSpent} hrs</span>
+            <span className="text-white font-medium text-sm md:text-base">{project.timeSpent} hrs</span>
           </div>
 
-          <div className="bg-white/5 rounded-lg p-4">
+          <div className="bg-white/5 rounded-lg p-3 md:p-4">
             <div className="flex items-center gap-2 text-white/60 mb-2">
               <Calendar className="w-4 h-4" />
-              <span className="text-sm">Tasks</span>
+              <span className="text-xs md:text-sm">Tasks</span>
             </div>
-            <span className="text-white font-medium">{project.taskCount} tasks</span>
+            <span className="text-white font-medium text-sm md:text-base">{project.taskCount} tasks</span>
           </div>
         </div>
 
         {/* Dates */}
-        <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="grid grid-cols-2 gap-3 md:gap-4 mt-4">
           <div>
-            <span className="text-sm text-white/60">Start Date</span>
-            <p className="text-white">{formatDate(project.startDate)}</p>
+            <span className="text-xs md:text-sm text-white/60">Start Date</span>
+            <p className="text-white text-sm md:text-base">{formatDate(project.startDate)}</p>
           </div>
           <div>
-            <span className="text-sm text-white/60">End Date</span>
-            <p className="text-white">{formatDate(project.endDate)}</p>
+            <span className="text-xs md:text-sm text-white/60">End Date</span>
+            <p className="text-white text-sm md:text-base">{formatDate(project.endDate)}</p>
           </div>
         </div>
 
@@ -281,12 +285,12 @@ function ProjectDetails() {
           <div className="mt-4">
             <div className="flex items-center gap-2 text-white/60 mb-2">
               <Users className="w-4 h-4" />
-              <span className="text-sm">Assigned Team</span>
+              <span className="text-xs md:text-sm">Assigned Team</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {project.assignedUsers.map((user, index) => (
                 <div key={index} className="bg-white/10 rounded-lg px-3 py-2">
-                  <p className="text-white text-sm font-medium">{user.name}</p>
+                  <p className="text-white text-xs md:text-sm font-medium">{user.name}</p>
                   <p className="text-white/60 text-xs">{user.email}</p>
                 </div>
               ))}
@@ -297,11 +301,11 @@ function ProjectDetails() {
 
       {/* Tasks Section */}
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-medium">Project Tasks</h2>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
+          <h2 className="text-xl md:text-2xl font-medium">Project Tasks</h2>
           <button
             onClick={() => setIsTaskModalOpen(true)}
-            className="flex items-center gap-2 bg-secondary text-primary px-4 py-2 rounded-lg hover:bg-secondary/80 transition-colors font-medium"
+            className="w-full md:w-auto flex items-center justify-center gap-2 bg-secondary text-primary px-4 py-2 min-h-[44px] rounded-lg hover:bg-secondary/80 transition-colors font-medium"
           >
             + New Task
           </button>
