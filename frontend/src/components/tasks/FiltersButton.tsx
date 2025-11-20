@@ -10,7 +10,7 @@ export const FilterButton: React.FC<FiltersButtonProps> = ({ children, isActive,
 
   return (
     <button
-      className={`rounded p-1 ${activeClass}`}
+      className={`rounded px-3 py-2 min-h-[44px] transition-colors ${activeClass}`}
       {...props}
     >
       {children}
