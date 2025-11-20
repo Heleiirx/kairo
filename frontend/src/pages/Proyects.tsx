@@ -3,7 +3,9 @@ import ProjectsHeader from "../components/projects/ProjectsHeader";
 import ProjectsViewTabs from "../components/projects/ProjectsViewTabs";
 import ProjectsGrid from "../components/projects/ProjectsGrid";
 import ProjectsFilterSidebar from "../components/projects/ProjectsFilterSidebar";
+import KanbanView from "../components/projects/KanbanView";
 import type { Project } from "../components/projects/ProjectCard";
+import type { KanbanProject } from "../components/projects/KanbanColumn";
 import { sortByCompletion } from "../utils/sortByCompletion";
 
 function Proyects() {
@@ -110,6 +112,127 @@ function Proyects() {
     [projects]
   );
 
+  // Mock Kanban data
+  const kanbanProjects: KanbanProject[] = [
+    {
+      id: "1",
+      name: "Project name",
+      category: "Categoria",
+      progress: 82,
+      color: "bg-green-400",
+      tasksCount: 7,
+      totalTime: "3:20 hrs",
+      tasks: [
+        {
+          id: "t1",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t2",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t3",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t4",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: true
+        }
+      ]
+    },
+    {
+      id: "2",
+      name: "Project name",
+      category: "Categoria",
+      progress: 82,
+      color: "bg-secondary",
+      tasksCount: 7,
+      totalTime: "3:20 hrs",
+      tasks: [
+        {
+          id: "t5",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t6",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t7",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t8",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: true
+        }
+      ]
+    },
+    {
+      id: "3",
+      name: "Project name",
+      category: "Categoria",
+      progress: 82,
+      color: "bg-secondary",
+      tasksCount: 7,
+      totalTime: "3:20 hrs",
+      tasks: [
+        {
+          id: "t9",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t10",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t11",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: false
+        },
+        {
+          id: "t12",
+          name: "Task name",
+          time: "1:26 hrs",
+          priority: "High",
+          completed: true
+        }
+      ]
+    }
+  ];
+
   const filters = [
     "All projects",
     "School",
@@ -139,11 +262,7 @@ function Proyects() {
       <div className="flex gap-6">
         <div className="flex-1">
           {activeView === "Board" && <ProjectsGrid projects={sortedProjects} />}
-          {activeView === "Kanban" && (
-            <div className="flex items-center justify-center h-64 text-white/50">
-              Kanban view - Coming soon
-            </div>
-          )}
+          {activeView === "Kanban" && <KanbanView projects={kanbanProjects} />}
         </div>
 
         <ProjectsFilterSidebar
