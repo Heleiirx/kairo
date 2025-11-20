@@ -256,7 +256,7 @@ function Proyects() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-base text-white p-6">
+    <div className="w-full min-h-screen bg-base text-white p-4 md:p-6">
       <ProjectsHeader />
 
       <ProjectsViewTabs
@@ -265,17 +265,29 @@ function Proyects() {
         onNewProject={handleNewProject}
       />
 
+      {/* Mobile: Filters above content */}
+      <div className="lg:hidden mb-4">
+        <ProjectsFilterSidebar
+          filters={filters}
+          selectedFilter={selectedFilter}
+          onFilterChange={setSelectedFilter}
+        />
+      </div>
+
       <div className="flex gap-6">
         <div className="flex-1">
           {activeView === "Board" && <ProjectsGrid projects={sortedProjects} />}
           {activeView === "Kanban" && <KanbanView projects={kanbanProjects} />}
         </div>
 
-        <ProjectsFilterSidebar
-          filters={filters}
-          selectedFilter={selectedFilter}
-          onFilterChange={setSelectedFilter}
-        />
+        {/* Desktop: Filters as sidebar */}
+        <div className="hidden lg:block">
+          <ProjectsFilterSidebar
+            filters={filters}
+            selectedFilter={selectedFilter}
+            onFilterChange={setSelectedFilter}
+          />
+        </div>
       </div>
 
       <NewProjectModal

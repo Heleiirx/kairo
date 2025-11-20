@@ -33,7 +33,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div
       onClick={handleCardClick}
-      className={`bg-primary rounded-lg p-4 transition-colors cursor-pointer ${
+      className={`w-full bg-primary rounded-lg p-4 transition-colors cursor-pointer ${
         project.completed
           ? "opacity-60 bg-primary/50"
           : "hover:bg-primary/80"

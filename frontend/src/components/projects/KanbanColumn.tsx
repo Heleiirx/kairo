@@ -26,17 +26,17 @@ interface KanbanColumnProps {
 
 export default function KanbanColumn({ project }: KanbanColumnProps) {
   return (
-    <div className="bg-primary rounded-lg p-4 min-w-[280px] flex flex-col">
+    <div className="bg-primary rounded-lg p-4 min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] flex flex-col snap-start">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <span className="text-xs px-2 py-1 rounded bg-white/10 text-white/80">
           {project.category}
         </span>
         <div className="flex gap-1">
-          <button className="p-1 hover:bg-white/10 rounded transition-colors">
+          <button className="p-2 md:p-1 hover:bg-white/10 rounded transition-colors min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center">
             <Maximize2 className="w-4 h-4 text-white/60" />
           </button>
-          <button className="p-1 hover:bg-white/10 rounded transition-colors">
+          <button className="p-2 md:p-1 hover:bg-white/10 rounded transition-colors min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center">
             <MoreVertical className="w-4 h-4 text-white/60" />
           </button>
         </div>
@@ -44,8 +44,8 @@ export default function KanbanColumn({ project }: KanbanColumnProps) {
 
       {/* Project Name */}
       <div className="flex items-center gap-2 mb-3">
-        <h3 className="text-lg font-medium text-white">{project.name}</h3>
-        <button className="p-1 hover:bg-white/10 rounded transition-colors">
+        <h3 className="text-base md:text-lg font-medium text-white">{project.name}</h3>
+        <button className="p-2 md:p-1 hover:bg-white/10 rounded transition-colors min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center">
           <Edit2 className="w-4 h-4 text-white/60" />
         </button>
       </div>
@@ -71,9 +71,9 @@ export default function KanbanColumn({ project }: KanbanColumnProps) {
       <div className="flex items-center gap-4 mb-3 text-xs text-white/80">
         <span>Tasks {project.tasksCount}</span>
         <span>Time {project.totalTime}</span>
-        <button className="ml-auto flex items-center gap-1 px-2 py-1 bg-white/10 rounded hover:bg-white/20 transition-colors">
+        <button className="ml-auto flex items-center gap-1 px-3 py-2 md:px-2 md:py-1 bg-white/10 rounded hover:bg-white/20 transition-colors min-h-[44px] md:min-h-0">
           <Plus className="w-3 h-3" />
-          Add task
+          <span className="text-xs">Add task</span>
         </button>
       </div>
 
