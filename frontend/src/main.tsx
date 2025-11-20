@@ -7,6 +7,7 @@ import Proyects from './pages/Proyects.tsx';
 import ProjectDetails from './pages/ProjectDetails.tsx';
 import Tasks from './pages/Tasks.tsx';
 import Pomodoro from './pages/Pomodoro.tsx';
+import Settings from './pages/Settings.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PrivateLayout from './layouts/PrivateLayout.tsx';
@@ -63,6 +64,13 @@ const router = createBrowserRouter([
         element: 
         <RequireAuth>
           <Tasks />
+        </RequireAuth>
+      },
+      {
+        path: 'settings', 
+        element: 
+        <RequireAuth>
+          <Settings />
         </RequireAuth>
       },
   
