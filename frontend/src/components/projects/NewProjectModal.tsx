@@ -74,13 +74,13 @@ function NewProjectModal({ isOpen, onClose, onProjectCreated }: NewProjectModalP
   return (
     <ModalXL onClose={onClose}>
       <form 
-        className="flex flex-col gap-4 bg-base p-8 shadow-xl/30 border-t-4 border-base-contrast rounded-lg max-w-2xl" 
+        className="flex flex-col gap-4 bg-base p-4 md:p-6 lg:p-8 shadow-xl/30 border-t-4 border-base-contrast rounded-lg w-full md:max-w-2xl" 
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-medium text-white mb-2">Create New Project</h2>
+        <h2 className="text-xl md:text-2xl font-medium text-white mb-2">Create New Project</h2>
         
         {/* Title and Category */}
-        <div className="grid grid-cols-2 gap-4">  
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">  
           <FlotatingInput
             id="projectTitle"
             label="Project Title"
@@ -110,14 +110,14 @@ function NewProjectModal({ isOpen, onClose, onProjectCreated }: NewProjectModalP
         </div>
 
         {/* Priority and Status */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label htmlFor="projectPriority" className="block mb-2 text-sm font-medium text-white">
               Priority
             </label>
             <select
               id="projectPriority"
-              className="bg-primary border border-white/20 text-white text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-secondary"
+              className="bg-primary border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 min-h-[44px] focus:outline-none focus:border-secondary"
               value={form.priority}
               onChange={handleChange}
             >
@@ -133,7 +133,7 @@ function NewProjectModal({ isOpen, onClose, onProjectCreated }: NewProjectModalP
             </label>
             <select
               id="projectStatus"
-              className="bg-primary border border-white/20 text-white text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-secondary"
+              className="bg-primary border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 min-h-[44px] focus:outline-none focus:border-secondary"
               value={form.status}
               onChange={handleChange}
             >
@@ -145,7 +145,7 @@ function NewProjectModal({ isOpen, onClose, onProjectCreated }: NewProjectModalP
         </div>
 
         {/* Start and End Dates */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label htmlFor="projectStartdate" className="block mb-2 text-sm font-medium text-white">
               Start Date
@@ -153,7 +153,7 @@ function NewProjectModal({ isOpen, onClose, onProjectCreated }: NewProjectModalP
             <input
               id="projectStartdate"
               type="date"
-              className="bg-primary border border-white/20 text-white text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-secondary"
+              className="bg-primary border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 min-h-[44px] focus:outline-none focus:border-secondary"
               value={form.startDate}
               onChange={handleChange}
             />
@@ -166,7 +166,7 @@ function NewProjectModal({ isOpen, onClose, onProjectCreated }: NewProjectModalP
             <input
               id="projectEnddate"
               type="date"
-              className="bg-primary border border-white/20 text-white text-sm rounded-lg block w-full p-2.5 focus:outline-none focus:border-secondary"
+              className="bg-primary border border-white/20 text-white text-sm md:text-base rounded-lg block w-full p-2.5 min-h-[44px] focus:outline-none focus:border-secondary"
               value={form.endDate}
               onChange={handleChange}
             />
@@ -175,18 +175,18 @@ function NewProjectModal({ isOpen, onClose, onProjectCreated }: NewProjectModalP
 
         {error && <div className="text-red-400 text-sm">{error}</div>}
         
-        <div className="flex justify-end gap-4 mt-4">
+        <div className="flex flex-col md:flex-row justify-end gap-3 md:gap-4 mt-4">
           <button 
             type="button" 
             onClick={onClose} 
-            className="py-2 px-6 rounded-md bg-white/10 text-white hover:bg-white/20 transition-colors"
+            className="w-full md:w-auto min-h-[44px] py-2 px-6 rounded-md bg-white/10 text-white hover:bg-white/20 transition-colors"
           >
             Cancel
           </button>
           <button 
             type="submit" 
             disabled={loading}
-            className="py-2 px-6 rounded-md bg-secondary text-primary font-medium hover:bg-secondary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full md:w-auto min-h-[44px] py-2 px-6 rounded-md bg-secondary text-primary font-medium hover:bg-secondary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Creating..." : "Create Project"}
           </button>
