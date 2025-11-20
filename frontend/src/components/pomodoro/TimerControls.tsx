@@ -14,31 +14,31 @@ export default function TimerControls({
   onStop 
 }: TimerControlsProps) {
   return (
-    <div className="flex items-center gap-6 mb-8">
+    <div className="flex items-center gap-4 md:gap-6 mb-6 md:mb-8">
       <button
         onClick={onPlayPause}
-        className="p-3 rounded-full hover:bg-white/10 transition-colors"
+        className="p-4 md:p-5 rounded-full hover:bg-white/10 transition-colors min-w-[64px] min-h-[64px] flex items-center justify-center"
         aria-label={isRunning ? "Pause" : "Play"}
       >
         {isRunning ? (
-          <Pause className="h-6 w-6 text-white" />
+          <Pause className="h-7 w-7 md:h-8 md:w-8 text-white" />
         ) : (
-          <Play className="h-6 w-6 text-white" />
+          <Play className="h-7 w-7 md:h-8 md:w-8 text-white" />
         )}
       </button>
       <button
         onClick={onReset}
-        className="p-3 rounded-full hover:bg-white/10 transition-colors"
+        className="p-4 md:p-5 rounded-full hover:bg-white/10 transition-colors min-w-[64px] min-h-[64px] flex items-center justify-center"
         aria-label="Reset"
       >
-        <RotateCcw className="h-6 w-6 text-white" />
+        <RotateCcw className="h-7 w-7 md:h-8 md:w-8 text-white" />
       </button>
       <button
         onClick={onStop}
-        className="p-3 rounded-full hover:bg-white/10 transition-colors"
+        className="p-4 md:p-5 rounded-full hover:bg-white/10 transition-colors min-w-[64px] min-h-[64px] flex items-center justify-center"
         aria-label="Stop"
       >
-        <X className="h-6 w-6 text-white" />
+        <X className="h-7 w-7 md:h-8 md:w-8 text-white" />
       </button>
     </div>
   );
