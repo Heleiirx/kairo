@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { FilterControls } from "../components/tasks/TasksFilterControls";
 import { TaskTable } from "../components/tasks/TaskTable";
 import NewTaskModal from "../components/tasks/NewTaskModal";
 import { getTasksByProject, updateTask } from "../services/tasksActions";
+import { sortByCompletion } from "../utils/sortByCompletion";
 
 function Tasks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,13 +18,41 @@ function Tasks() {
   },
   {
     id: 2,
+    name: "Lorem ipsum jmoso hola",
+    time: "1:26 hrs",
+    priority: "Medium",
+    project: "History",
+    category: "School",
+    completed: true,
+  },
+  {
+    id: 3,
     name: "Lorem ipsum jmoso",
     time: "1:26 hrs",
     priority: "Medium",
     project: "History",
     category: "School",
     completed: false,
-  }]);
+  },
+  {
+    id: 4,
+    name: "Lorem ipsum jmoso completa",
+    time: "1:26 hrs",
+    priority: "Medium",
+    project: "History",
+    category: "School",
+    completed: true,
+  },
+  {
+    id: 5,
+    name: "Lorem ipsum jmoso",
+    time: "1:26 hrs",
+    priority: "Medium",
+    project: "History",
+    category: "School",
+    completed: false,
+  }
+]);
   const [loading, setLoading] = useState(false);
   
   // TODO: Replace with actual project ID from context/route/props
@@ -77,6 +106,9 @@ function Tasks() {
     fetchTasks();
   };
 
+  // Sort tasks: incomplete first, completed last
+  const sortedTasks = useMemo(() => sortByCompletion(tasks), [tasks]);
+
   return (
     <div className="text-white pt-6 py-4">  
       <div>
@@ -93,7 +125,7 @@ function Tasks() {
       {loading ? (
         <div className="text-center py-8">Loading tasks...</div>
       ) : (
-        <TaskTable tasks={tasks} onToggleComplete={handleToggleComplete} />
+        <TaskTable tasks={sortedTasks} onToggleComplete={handleToggleComplete} />
       )}
     </div>
   )
