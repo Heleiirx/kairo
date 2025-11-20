@@ -11,6 +11,7 @@ export interface Project {
   time: string;
   progress: number;
   color: string;
+  completed: boolean;
 }
 
 interface ProjectCardProps {
@@ -19,7 +20,13 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div className="bg-primary rounded-lg p-4 hover:bg-primary/80 transition-colors">
+    <div
+      className={`bg-primary rounded-lg p-4 transition-colors ${
+        project.completed
+          ? "opacity-60 bg-primary/50"
+          : "hover:bg-primary/80"
+      }`}
+    >
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <span className="text-xs px-2 py-1 rounded bg-white/10 text-white/80">
@@ -36,7 +43,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-medium mb-3">{project.title}</h3>
+      <h3
+        className={`text-lg font-medium mb-3 ${
+          project.completed ? "line-through" : ""
+        }`}
+      >
+        {project.title}
+      </h3>
 
       {/* Progress Bar */}
       <div className="mb-4">
