@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import ProjectsHeader from "../components/projects/ProjectsHeader";
 import ProjectsViewTabs from "../components/projects/ProjectsViewTabs";
 import ProjectsGrid from "../components/projects/ProjectsGrid";
 import ProjectsFilterSidebar from "../components/projects/ProjectsFilterSidebar";
 import type { Project } from "../components/projects/ProjectCard";
+import { sortByCompletion } from "../utils/sortByCompletion";
 
 function Proyects() {
   const [activeView, setActiveView] = useState<"Board" | "Kanban">("Board");
@@ -18,7 +19,8 @@ function Proyects() {
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
       progress: 82,
-      color: "bg-green-400"
+      color: "bg-green-400",
+      completed: false
     },
     {
       id: "2",
@@ -27,7 +29,8 @@ function Proyects() {
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
       progress: 82,
-      color: "bg-secondary"
+      color: "bg-secondary",
+      completed: false
     },
     {
       id: "3",
@@ -36,7 +39,8 @@ function Proyects() {
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
       progress: 82,
-      color: "bg-secondary"
+      color: "bg-secondary",
+      completed: false
     },
     {
       id: "4",
@@ -45,16 +49,18 @@ function Proyects() {
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
       progress: 82,
-      color: "bg-red-400"
+      color: "bg-red-400",
+      completed: false
     },
     {
       id: "5",
       title: "Titulo del proyecto",
       category: "Categoria",
-      tasks: { completed: 3, total: 7 },
+      tasks: { completed: 7, total: 7 },
       time: "3:20 hrs",
-      progress: 82,
-      color: "bg-red-400"
+      progress: 100,
+      color: "bg-green-400",
+      completed: true
     },
     {
       id: "6",
@@ -63,16 +69,18 @@ function Proyects() {
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
       progress: 82,
-      color: "bg-secondary"
+      color: "bg-secondary",
+      completed: false
     },
     {
       id: "7",
       title: "Titulo del proyecto",
       category: "Categoria",
-      tasks: { completed: 3, total: 7 },
+      tasks: { completed: 7, total: 7 },
       time: "3:20 hrs",
-      progress: 82,
-      color: "bg-secondary"
+      progress: 100,
+      color: "bg-green-400",
+      completed: true
     },
     {
       id: "8",
@@ -81,18 +89,26 @@ function Proyects() {
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
       progress: 82,
-      color: "bg-secondary"
+      color: "bg-secondary",
+      completed: false
     },
     {
       id: "9",
       title: "Titulo del proyecto",
       category: "Categoria",
-      tasks: { completed: 3, total: 7 },
+      tasks: { completed: 7, total: 7 },
       time: "3:20 hrs",
       progress: 100,
-      color: "bg-secondary"
+      color: "bg-green-400",
+      completed: true
     }
   ];
+
+  // Sort projects with incomplete ones first
+  const sortedProjects = useMemo(
+    () => sortByCompletion(projects),
+    [projects]
+  );
 
   const filters = [
     "All projects",
@@ -122,7 +138,7 @@ function Proyects() {
 
       <div className="flex gap-6">
         <div className="flex-1">
-          {activeView === "Board" && <ProjectsGrid projects={projects} />}
+          {activeView === "Board" && <ProjectsGrid projects={sortedProjects} />}
           {activeView === "Kanban" && (
             <div className="flex items-center justify-center h-64 text-white/50">
               Kanban view - Coming soon
