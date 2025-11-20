@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import TimerDisplay from "./TimerDisplay";
 import TimerControls from "./TimerControls";
 import SessionIndicator from "./SessionIndicator";
+import { usePictureInPicture } from "../../hooks/usePictureInPicture";
 
 interface PomodoroTimerProps {
   mode: "pomodoro" | "flowclock";
@@ -114,6 +115,16 @@ export default function PomodoroTimer({ mode }: PomodoroTimerProps) {
     }
   };
 
+  const { isPiPActive, togglePiP, isPiPSupported } = usePictureInPicture({
+    timeLeft,
+    sessionLabel: getSessionLabel(),
+    isRunning,
+    mode,
+    onPlayPause: handlePlayPause,
+    onReset: handleReset,
+    onStop: handleStop
+  });
+
   return (
     <div className="flex flex-col items-center">
       <TimerDisplay 
@@ -126,6 +137,9 @@ export default function PomodoroTimer({ mode }: PomodoroTimerProps) {
         onPlayPause={handlePlayPause}
         onReset={handleReset}
         onStop={handleStop}
+        onTogglePiP={togglePiP}
+        isPiPActive={isPiPActive}
+        isPiPSupported={isPiPSupported}
       />
       {mode === "pomodoro" && (
         <SessionIndicator 

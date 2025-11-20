@@ -1,17 +1,23 @@
-import { Play, RotateCcw, X, Pause } from "lucide-react";
+import { Play, RotateCcw, X, Pause, PictureInPicture } from "lucide-react";
 
 interface TimerControlsProps {
   isRunning: boolean;
   onPlayPause: () => void;
   onReset: () => void;
   onStop: () => void;
+  onTogglePiP?: () => void;
+  isPiPActive?: boolean;
+  isPiPSupported?: boolean;
 }
 
 export default function TimerControls({ 
   isRunning, 
   onPlayPause, 
   onReset, 
-  onStop 
+  onStop,
+  onTogglePiP,
+  isPiPActive = false,
+  isPiPSupported = false
 }: TimerControlsProps) {
   return (
     <div className="flex items-center gap-4 md:gap-6 mb-6 md:mb-8">
@@ -40,6 +46,18 @@ export default function TimerControls({
       >
         <X className="h-7 w-7 md:h-8 md:w-8 text-white" />
       </button>
+      {isPiPSupported && onTogglePiP && (
+        <button
+          onClick={onTogglePiP}
+          className={`hidden md:flex p-4 md:p-5 rounded-full hover:bg-white/10 transition-colors min-w-[64px] min-h-[64px] items-center justify-center ${
+            isPiPActive ? 'bg-white/20' : ''
+          }`}
+          aria-label="Picture in Picture"
+          title="Picture in Picture"
+        >
+          <PictureInPicture className="h-7 w-7 md:h-8 md:w-8 text-white" />
+        </button>
+      )}
     </div>
   );
 }
