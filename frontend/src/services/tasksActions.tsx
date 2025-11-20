@@ -48,6 +48,16 @@ export const getTasksByUser = async (userId: string) => {
   }
 };
 
+// Get a single task by ID
+export const getTaskById = async (taskId: string) => {
+  try {
+    const response = await api.get(`/tasks/${taskId}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Failed to fetch task");
+  }
+};
+
 // Update a task by ID
 export const updateTask = async (taskId: string, taskData: UpdateTaskData) => {
   try {
