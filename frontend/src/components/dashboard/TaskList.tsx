@@ -12,7 +12,7 @@ interface TaskListProps {
 
 function TaskList({ tasks }: TaskListProps) {
   return (
-    <div className="bg-primary rounded-lg p-4 min-h-[280px] md:h-[41rem] flex flex-col overflow-hidden">
+    <div className="bg-primary rounded-lg p-4 min-h-[280px] md:h-[23rem] flex flex-col overflow-hidden">
       <div className="flex items-center justify-between mb-3 flex-shrink-0">
         <div>
           <p className="text-xs text-secondary">Statics</p>

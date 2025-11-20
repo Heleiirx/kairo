@@ -54,13 +54,13 @@ function Dashboard() {
           </button>
         </div>
       </div>
-
+    
       {/* Stats Cards - Responsive Grid: 1 col (mobile), 2 cols (tablet), 4 cols (desktop) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3 flex-shrink-0">
         <StatCard percentage={82} label="Time went this week" color="#CDFF9A" />
         <StatCard percentage={69} label="Finished tasks" color="#CDFF9A" />
         <StatCard percentage={92} label="Projects progress" color="#CDFF9A" />
-        <FocusTimer />
+        {/* <FocusTimer /> */}
       </div>
 
       {/* Main Grid - Responsive: Stack on mobile, 2 cols on tablet, 4 cols on desktop */}
@@ -68,11 +68,6 @@ function Dashboard() {
         {/* Projects - Full width on mobile, spans appropriately on larger screens */}
         <div className="md:col-span-1">
           <ProjectList projects={projects} />
-        </div>
-        
-        {/* Heatmap - Full width on mobile */}
-        <div className="md:col-span-1">
-          <HeatmapChart data={heatmapData} />
         </div>
         
         {/* Week Time Chart - Full width on mobile, single column on tablet/desktop */}
@@ -84,6 +79,12 @@ function Dashboard() {
         <div className="md:col-span-2 lg:col-span-1">
           <TaskList tasks={tasks} />
         </div>
+
+        {/* Heatmap - Full width on mobile */}
+        <div className="md:col-span-1">
+          <HeatmapChart data={heatmapData} />
+        </div>
+        
       </div>
     </div>
   );

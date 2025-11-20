@@ -12,7 +12,7 @@ interface ProjectListProps {
 
 function ProjectList({ projects }: ProjectListProps) {
   return (
-    <div className="bg-primary rounded-lg p-4 min-h-[280px] md:h-80 flex flex-col overflow-hidden">
+    <div className="bg-primary rounded-lg p-4 min-h-[280px] md:h-92 flex flex-col overflow-hidden">
       <p className="text-xs text-secondary mb-2">Statics</p>
       <h3 className="text-white font-medium text-base mb-3">My projects</h3>
       <div className="space-y-3 overflow-y-auto flex-1">

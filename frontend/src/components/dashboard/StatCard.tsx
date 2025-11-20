@@ -9,7 +9,7 @@ function StatCard({ percentage, label, color = "#95B2EE" }: StatCardProps) {
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="bg-primary rounded-lg p-4 flex items-center gap-3 min-h-[100px]">
+    <div className="bg-primary rounded-lg p-4 flex items-center gap-3 min-h-[100px] h-16">
       <div className="relative w-16 h-16 flex-shrink-0">
         <svg className="w-16 h-16 transform -rotate-90">
           <circle
