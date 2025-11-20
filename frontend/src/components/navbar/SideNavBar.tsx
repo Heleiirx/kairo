@@ -13,7 +13,7 @@ export default function SideNavBar(){
         { icon: Grid3X3, label: "Dashboard", path: "/dashboard" },
         { icon: CheckSquare, label: "Tasks", path: "/tasks" },
         { icon: Folder, label: "Projects", path: "/proyects" },
-        { icon: Clock, label: "Pomodoro", path: "/clock" },
+        { icon: Clock, label: "Pomodoro", path: "/pomodoro" },
         { icon: TrendingUp, label: "Stats", path: "/stats" },
         { icon: Settings, label: "Settings", path: "/settings" },
     ];
