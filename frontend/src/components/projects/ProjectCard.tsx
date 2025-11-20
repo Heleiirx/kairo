@@ -53,10 +53,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Progress Bar */}
       <div className="mb-4">
-        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+        <div className="flex h-1.5 bg-white/20 rounded-full overflow-hidden">
           <div
-            className={`h-full ${project.color} transition-all duration-300`}
+            className={`${project.color} transition-all duration-300`}
             style={{ width: `${project.progress}%` }}
+          />
+          <div
+            className="bg-white/20"
+            style={{ width: `${100 - project.progress}%` }}
           />
         </div>
         <span className="text-xs text-white/60 mt-1 inline-block">
