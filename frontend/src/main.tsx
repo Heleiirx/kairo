@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import Dashboard from './pages/Dashboard.tsx';
 import Proyects from './pages/Proyects.tsx';
+import ProjectDetails from './pages/ProjectDetails.tsx';
 import Tasks from './pages/Tasks.tsx';
 import Pomodoro from './pages/Pomodoro.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
@@ -48,6 +49,13 @@ const router = createBrowserRouter([
         element: 
         <RequireAuth>
           <Proyects />
+        </RequireAuth>
+      },
+      {
+        path: 'proyects/:id', 
+        element: 
+        <RequireAuth>
+          <ProjectDetails />
         </RequireAuth>
       },
       {
