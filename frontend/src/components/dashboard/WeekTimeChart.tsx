@@ -13,18 +13,18 @@ interface WeekTimeChartProps {
 
 function WeekTimeChart({ data }: WeekTimeChartProps) {
   return (
-    <div className="bg-primary rounded-lg p-4 h-full flex flex-col overflow-hidden">
-      <div className="flex items-center justify-between mb-2 flex-shrink-0">
+    <div className="bg-primary rounded-lg p-4 min-h-[300px] md:h-[41rem] flex flex-col overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2 flex-shrink-0">
         <div>
           <p className="text-xs text-secondary">Statics</p>
-          <h3 className="text-white font-medium text-base">Week time of projects</h3>
+          <h3 className="text-white font-medium text-sm md:text-base">Week time of projects</h3>
         </div>
-        <select className="bg-base text-white text-xs px-2 py-1 rounded border border-secondary">
+        <select className="bg-base text-white text-xs px-3 py-2 md:px-2 md:py-1 rounded border border-secondary min-h-[44px] md:min-h-0">
           <option>Week</option>
           <option>Month</option>
         </select>
       </div>
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-[200px]">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie

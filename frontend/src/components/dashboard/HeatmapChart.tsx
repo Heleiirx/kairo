@@ -15,25 +15,25 @@ function HeatmapChart({ data }: HeatmapChartProps) {
   const weeks = data.length;
 
   return (
-    <div className="bg-primary rounded-lg p-4 h-full flex flex-col overflow-hidden">
-      <div className="flex items-center justify-between mb-2 flex-shrink-0">
+    <div className="bg-primary rounded-lg p-4 min-h-[240px] md:h-64 flex flex-col overflow-hidden">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2 flex-shrink-0">
         <div>
           <p className="text-xs text-secondary">Statics</p>
-          <h3 className="text-white font-medium text-base">Average weekly time</h3>
+          <h3 className="text-white font-medium text-sm md:text-base">Average weekly time</h3>
         </div>
-        <select className="bg-base text-white text-xs px-2 py-1 rounded border border-secondary">
+        <select className="bg-base text-white text-xs px-3 py-2 md:px-2 md:py-1 rounded border border-secondary min-h-[44px] md:min-h-0">
           <option>Show all</option>
           <option>Last month</option>
         </select>
       </div>
-      <div className="relative flex-1 flex flex-col justify-center">
-        <div className="grid gap-0.5" style={{ gridTemplateColumns: `repeat(${weeks}, 1fr)` }}>
+      <div className="relative flex-1 flex flex-col justify-center overflow-x-auto">
+        <div className="grid gap-0.5 min-w-max mx-auto" style={{ gridTemplateColumns: `repeat(${weeks}, 1fr)` }}>
           {data.map((week, weekIndex) => (
             <div key={weekIndex} className="grid gap-0.5" style={{ gridTemplateRows: `repeat(7, 1fr)` }}>
               {week.map((day, dayIndex) => (
                 <div
                   key={`${weekIndex}-${dayIndex}`}
-                  className="w-2 h-2 rounded-sm"
+                  className="w-2 h-2 md:w-2 md:h-2 rounded-sm"
                   style={{ backgroundColor: getColor(day) }}
                   title={`${day} hours`}
                 />
@@ -41,11 +41,11 @@ function HeatmapChart({ data }: HeatmapChartProps) {
             </div>
           ))}
         </div>
-        <div className="flex justify-between mt-2 text-xs text-secondary">
+        <div className="flex justify-between mt-3 text-xs text-secondary">
           <span>{months[0]}</span>
           <span>{months[months.length - 1]}</span>
         </div>
-        <p className="text-white text-center mt-1 text-sm font-medium">7 hours</p>
+        <p className="text-white text-center mt-2 text-sm font-medium">7 hours</p>
       </div>
     </div>
   );
