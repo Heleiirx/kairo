@@ -14,31 +14,70 @@ export default function ModalUserAuth() {
 
     const handleToggle = () => setIsSignUp(!isSignUp);
     const { isOpen, isSignUp, closeModal, setIsSignUp } = useAuthModal();
+    
     // Change the URL when the modal opens or closes
     useEffect(() => {
-    if (isOpen) {
-        const modalPath = isSignUp ? "/signup" : "/signin";
-        if (location.pathname !== modalPath) {
-        navigate(modalPath, { replace: true });
+        if (isOpen) {
+            const modalPath = isSignUp ? "/signup" : "/signin";
+            if (location.pathname !== modalPath) {
+                navigate(modalPath, { replace: true });
+            }
+        } else {
+            if (location.pathname === "/signup" || location.pathname === "/signin") {
+                navigate("/", { replace: true });
+            }
         }
-    } else {
-        if (location.pathname === "/signup" || location.pathname === "/signin") {
-        navigate("/", { replace: true });
-        }
-    }
     }, [isOpen, isSignUp]);
+
+    // Implement modal scroll lock to prevent body scrolling
+    useEffect(() => {
+        if (isOpen) {
+            const originalOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            
+            return () => {
+                document.body.style.overflow = originalOverflow;
+            };
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
     return (
-        <ModalXL>
+        <ModalXL onClose={closeModal}>
             <button
-                className="z-100 absolute top-7 right-25 p-1 size-8 bg-base-contrast rounded-full flex items-center justify-center hover:bg-secondary/30 transition-colors duration-300"
+                className="z-100 absolute top-4 right-4 md:top-7 md:right-7 p-1 size-8 md:size-10 bg-base-contrast rounded-full flex items-center justify-center hover:bg-secondary/30 transition-colors duration-300"
                 onClick={closeModal}
+                aria-label="Close modal"
             >
-                <X className="text-primary"/>
+                <X className="text-primary w-5 h-5 md:w-6 md:h-6"/>
             </button>
-            <div className="relative flex w-6xl h-80 min-h-9/10 overflow-hidden bg-base rounded shadow-xl/30 text-white">
+            
+            {/* Mobile layout: Single column, full-width */}
+            <div className="md:hidden relative flex flex-col w-full min-h-[90vh] overflow-y-auto bg-base text-white p-6">
+                <div className="flex flex-col items-center gap-6 py-8">
+                    <img src={smLogo} alt="Logo kairo, reloj" className="size-16" />
+                    
+                    {isSignUp ? <SignUpForm /> : <SignInForm />}
+                    
+                    <div className="flex flex-col items-center gap-4 mt-4 text-center">
+                        <span className="text-white text-sm">
+                            {isSignUp 
+                                ? "Already have an account?" 
+                                : "Don't have an account?"}
+                        </span>
+                        <button
+                            className="border border-white p-3 w-full min-h-[44px] rounded"
+                            onClick={handleToggle}
+                        >
+                            {isSignUp ? "Log in" : "Sign up"}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Tablet/Desktop layout: Two-panel design with max-width constraint */}
+            <div className="hidden md:flex relative w-full max-w-3xl h-[500px] overflow-hidden bg-base rounded shadow-xl/30 text-white">
                 {/* Form panel */}
                 <div
                     className={`
@@ -76,7 +115,7 @@ export default function ModalUserAuth() {
                         <p className="font-bold text-base-contrast inline">can create an account</p> here.
                     </span>
                     <button
-                        className="border border-white p-2 w-2/3 rounded"
+                        className="border border-white p-2 w-2/3 min-h-[44px] rounded"
                         onClick={handleToggle}
                     >
                        {isSignUp ? "Log in" : "Sign up"}

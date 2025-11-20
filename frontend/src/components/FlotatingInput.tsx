@@ -45,7 +45,7 @@ export default function FloatingInput({ label, type, name, id, value: externalVa
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder=" "
-        className="peer w-full border-0 border-b border-white bg-transparent py-2 px-1 text-base text-white placeholder-transparent focus:outline-none focus:border-white"
+        className="peer w-full border-0 border-b border-white bg-transparent py-3 px-1 min-h-[44px] text-base text-white placeholder-transparent focus:outline-none focus:border-white"
       />
 
       {/* Label */}
@@ -54,7 +54,7 @@ export default function FloatingInput({ label, type, name, id, value: externalVa
         className={`absolute left-1 transition-all text-white opacity-60
           ${value
             ? "top-[-1rem] text-sm"
-            : "top-2 text-base"} 
+            : "top-3 text-base"} 
           peer-focus:top-[-1rem] peer-focus:text-sm`}
       >
         {label}
