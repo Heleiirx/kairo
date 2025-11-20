@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { FilterControls } from "../components/tasks/TasksFilterControls";
 import { TaskTable } from "../components/tasks/TaskTable";
 import NewTaskModal from "../components/tasks/NewTaskModal";
@@ -88,7 +88,7 @@ function Tasks() {
     updatedAt: "2024-11-19"
   }
 ]);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   
   // TODO: Replace with actual project ID from context/route/props
   const projectId = "YOUR_PROJECT_ID_HERE";

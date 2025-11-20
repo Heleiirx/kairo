@@ -6,7 +6,7 @@ import type { JSX } from "react";
 
 
 export default function TopNavBar() :JSX.Element{
-  const [_, toggleTheme] = useDarkMode();
+  const [, toggleTheme] = useDarkMode();
   const { openLogin, openSignUp } = useAuthModal();
 
     return(

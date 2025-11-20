@@ -4,6 +4,7 @@ interface WeekTimeData {
   name: string;
   value: number;
   color: string;
+  [key: string]: string | number; // Index signature for recharts compatibility
 }
 
 interface WeekTimeChartProps {
@@ -42,7 +43,7 @@ function WeekTimeChart({ data }: WeekTimeChartProps) {
             <Legend
               verticalAlign="bottom"
               height={24}
-              formatter={(value, entry: any) => (
+              formatter={(_value, entry: any) => (
                 <span className="text-white text-xs">{entry.payload.name}</span>
               )}
             />
