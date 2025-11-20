@@ -73,10 +73,11 @@ function NewTaskModal({ isOpen, onClose, projectId, onTaskCreated }: NewTaskModa
 
   return (
     <ModalXL onClose={onClose}>
-      <form className="flex flex-col gap-4 bg-base p-4 md:p-6 lg:p-8 shadow-xl/30 border-t-4 border-base-contrast" onSubmit={handleSubmit}>
-        <h2 className="text-xl md:text-2xl">Create New Task</h2>
-        {/* Stack form fields vertically on mobile, 2 columns on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">  
+      <form className="flex flex-col gap-4 bg-base p-4 md:p-6 lg:p-8 shadow-xl/30 border-t-4 border-base-contrast rounded-lg" onSubmit={handleSubmit}>
+        <h2 className="text-xl md:text-2xl mb-2 md:mb-4">Create New Task</h2>
+        
+        {/* Stack form fields vertically with appropriate spacing */}
+        <div className="space-y-4">
           <FlotatingInput
             id="taskName"
             label="Task Name"
@@ -92,8 +93,6 @@ function NewTaskModal({ isOpen, onClose, projectId, onTaskCreated }: NewTaskModa
             value={form.description}
             onChange={handleChange}
           />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FlotatingInput
             id="taskProject"
             label="Project"
@@ -108,34 +107,38 @@ function NewTaskModal({ isOpen, onClose, projectId, onTaskCreated }: NewTaskModa
             value={form.category}
             onChange={handleChange}
           />
+          
+          {/* Touch-friendly dropdown with minimum 44px height */}
+          <div>
+            <label htmlFor="taskPriority" className="block mb-2 text-sm font-medium text-white">Priority</label>
+            <select
+              id="taskPriority"
+              className="bg-base border border-gray-300 text-white text-base rounded-lg block w-full px-4 py-3 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
+              value={form.priority}
+              onChange={handleChange}
+            >
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label htmlFor="taskPriority" className="block mb-2 text-sm font-medium text-white">Priority</label>
-          <select
-            id="taskPriority"
-            className="bg-base border border-gray-300 text-white text-sm rounded-lg block w-full p-2.5 min-h-[44px]"
-            value={form.priority}
-            onChange={handleChange}
-          >
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-        </div>
-        {error && <div className="text-red-400 text-sm">{error}</div>}
+        
+        {error && <div className="text-red-400 text-sm mt-2">{error}</div>}
+        
         {/* Full width buttons on mobile, side by side on desktop */}
-        <div className="flex flex-col md:flex-row justify-end gap-3 md:gap-4 mt-4">
+        <div className="flex flex-col md:flex-row justify-end gap-3 pt-4">
           <button 
             type="button" 
             onClick={onClose} 
-            className="w-full md:w-auto py-2 px-4 rounded-md bg-gray-600 hover:bg-gray-700 transition-colors min-h-[44px]"
+            className="w-full md:w-auto py-3 px-6 rounded-md bg-gray-600 hover:bg-gray-700 transition-colors min-h-[44px] text-base font-medium"
           >
             Cancel
           </button>
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full md:w-auto py-2 px-4 rounded-md bg-secondary text-base hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+            className="w-full md:w-auto py-3 px-6 rounded-md bg-secondary text-base hover:bg-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] font-medium"
           >
             {loading ? "Creating..." : "Create Task"}
           </button>
