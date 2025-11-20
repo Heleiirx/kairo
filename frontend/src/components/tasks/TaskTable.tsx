@@ -13,9 +13,10 @@ interface Task {
 interface TaskTableProps {
   tasks: Task[]
   onToggleComplete?: (id: number) => void
+  onRowClick?: (id: number) => void
 }
 
-export function TaskTable({ tasks, onToggleComplete }: TaskTableProps) {
+export function TaskTable({ tasks, onToggleComplete, onRowClick }: TaskTableProps) {
   return (
     <div className="bg-slate-700 rounded-lg overflow-hidden">
       {/* Table Header */}
@@ -33,7 +34,12 @@ export function TaskTable({ tasks, onToggleComplete }: TaskTableProps) {
       {/* Table Body */}
       <div className="divide-y divide-slate-600">
         {tasks.map((task) => (
-          <TaskRow key={task.id} task={task} onToggleComplete={onToggleComplete} />
+          <TaskRow 
+            key={task.id} 
+            task={task} 
+            onToggleComplete={onToggleComplete}
+            onRowClick={onRowClick}
+          />
         ))}
       </div>
     </div>

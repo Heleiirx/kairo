@@ -15,11 +15,24 @@ interface Task {
 interface TaskRowProps {
   task: Task
   onToggleComplete?: (id: number) => void
+  onRowClick?: (id: number) => void
 }
 
-export function TaskRow({ task, onToggleComplete }: TaskRowProps) {
+export function TaskRow({ task, onToggleComplete, onRowClick }: TaskRowProps) {
+  const handleRowClick = (e: React.MouseEvent) => {
+    // Don't trigger row click if clicking on checkbox or action buttons
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('[role="checkbox"]')) {
+      return;
+    }
+    onRowClick?.(task.id);
+  };
+
   return (
-    <div className={`px-6 py-4 transition-colors ${task.completed ? "opacity-60 bg-slate-700/50" : "hover:bg-slate-600"}`}>
+    <div 
+      className={`px-6 py-4 transition-colors cursor-pointer ${task.completed ? "opacity-60 bg-slate-700/50" : "hover:bg-slate-600"}`}
+      onClick={handleRowClick}
+    >
       <div className="grid grid-cols-12 gap-4 items-center">
         <div className="col-span-4 flex items-center space-x-3">
           <Checkbox
