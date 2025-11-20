@@ -2,10 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import Clock from './pages/Clock.tsx';
 import Dashboard from './pages/Dashboard.tsx';
 import Proyects from './pages/Proyects.tsx';
 import Tasks from './pages/Tasks.tsx';
+import Pomodoro from './pages/Pomodoro.tsx';
 import NotFoundPage from './pages/NotFoundPage.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PrivateLayout from './layouts/PrivateLayout.tsx';
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         path: 'clock', 
         element:
         <RequireAuth>
-          <Clock />
+          <Pomodoro />
         </RequireAuth>
       }, 
       {
@@ -56,7 +56,8 @@ const router = createBrowserRouter([
         <RequireAuth>
           <Tasks />
         </RequireAuth>
-      }
+      },
+  
     ]
   },
   {path: "*", element: <NotFoundPage />},
