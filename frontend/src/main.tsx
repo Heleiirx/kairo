@@ -30,7 +30,7 @@ const router = createBrowserRouter([
     element: <PrivateLayout />,
     children: [
       {
-        path: 'clock', 
+        path: 'pomodoro', 
         element:
         <RequireAuth>
           <Pomodoro />
