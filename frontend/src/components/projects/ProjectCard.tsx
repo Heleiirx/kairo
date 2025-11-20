@@ -1,4 +1,5 @@
 import { Maximize2, MoreVertical, Timer } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export interface Project {
   id: string;
@@ -19,9 +20,20 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const navigate = useNavigate();
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on buttons
+    if ((e.target as HTMLElement).closest("button")) {
+      return;
+    }
+    navigate(`/proyects/${project.id}`);
+  };
+
   return (
     <div
-      className={`bg-primary rounded-lg p-4 transition-colors ${
+      onClick={handleCardClick}
+      className={`bg-primary rounded-lg p-4 transition-colors cursor-pointer ${
         project.completed
           ? "opacity-60 bg-primary/50"
           : "hover:bg-primary/80"
