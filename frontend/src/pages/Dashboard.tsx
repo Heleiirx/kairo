@@ -54,38 +54,69 @@ function Dashboard() {
           </button>
         </div>
       </div>
-    
-      {/* Stats Cards - Responsive Grid: 1 col (mobile), 2 cols (tablet), 4 cols (desktop) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-3 flex-shrink-0">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-3 mb-3">
         <StatCard percentage={82} label="Time went this week" color="#CDFF9A" />
         <StatCard percentage={69} label="Finished tasks" color="#CDFF9A" />
         <StatCard percentage={92} label="Projects progress" color="#CDFF9A" />
-        {/* <FocusTimer /> */}
       </div>
 
-      {/* Main Grid - Responsive: Stack on mobile, 2 cols on tablet, 4 cols on desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-        {/* Projects - Full width on mobile, spans appropriately on larger screens */}
-        <div className="md:col-span-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:hidden">
+        <div>
           <ProjectList projects={projects} />
         </div>
-        
-        {/* Week Time Chart - Full width on mobile, single column on tablet/desktop */}
-        <div className="md:col-span-2 lg:col-span-1">
+
+        <div className="md:col-span-2">
           <WeekTimeChart data={weekTimeData} />
         </div>
-        
-        {/* Task List - Full width on mobile, spans 2 columns on tablet, 1 column on desktop */}
-        <div className="md:col-span-2 lg:col-span-1">
+
+        <div className="md:col-span-2">
           <TaskList tasks={tasks} />
         </div>
 
-        {/* Heatmap - Full width on mobile */}
-        <div className="md:col-span-1">
+        <div>
           <HeatmapChart data={heatmapData} />
         </div>
-        
+
+        <div>
+          <FocusTimer />
+        </div>
       </div>
+
+{/* ---------------------------- */}
+{/* DESKTOP LAYOUT (Your layout) */}
+{/* ---------------------------- */}
+<div className="hidden lg:grid lg:grid-cols-4 lg:grid-rows-4 gap-3 content-center">
+
+  {/* Stat Cards inside grid for desktop only */}
+  <div className="grid grid-cols-3 col-span-3 gap-3">
+    <StatCard percentage={82} label="Time went this week" color="#CDFF9A" />
+    <StatCard percentage={69} label="Finished tasks" color="#CDFF9A" />
+    <StatCard percentage={92} label="Projects progress" color="#CDFF9A" />
+  </div>
+
+  <div className="row-span-2">
+    <FocusTimer />
+  </div>
+
+  <div className="row-span-3">
+    <ProjectList projects={projects} />
+  </div>
+
+  <div className="row-span-3">
+    <WeekTimeChart data={weekTimeData} />
+  </div>
+
+  <div className="row-span-3">
+    <TaskList tasks={tasks} />
+  </div>
+
+  <div className="row-span-2">
+    <HeatmapChart data={heatmapData} />
+  </div>
+</div>
+
+      
     </div>
   );
 }
