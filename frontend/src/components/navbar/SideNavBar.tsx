@@ -179,7 +179,7 @@ export default function SideNavBar({ isMobile = false, onClose }: SideNavBarProp
             </nav>
 
             {/* Logout Button */}
-            <div className="px-3 mt-6">
+            <div className="px-3 mt-">
                 <button 
                     onClick={handleLogout}
                     className={`
