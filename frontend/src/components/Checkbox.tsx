@@ -14,19 +14,12 @@ const Checkbox: React.FC<CheckboxProps> = ({
   onChange,
   label,
   id,
-  className,
+  className = "",
   disabled = false,
 }) => {
   return (
     <label 
-      className={className} 
-      style={{ 
-        display: "inline-flex", 
-        alignItems: "center", 
-        cursor: disabled ? "not-allowed" : "pointer",
-        minWidth: "44px",
-        minHeight: "44px"
-      }}
+      className={`inline-flex items-center ${disabled ? "cursor-not-allowed" : "cursor-pointer"} ${className}`}
     >
       <input
         type="checkbox"
@@ -34,14 +27,23 @@ const Checkbox: React.FC<CheckboxProps> = ({
         onChange={onChange}
         id={id}
         disabled={disabled}
-        style={{ 
-          marginRight: label ? 8 : 0,
-          minWidth: "24px",
-          minHeight: "24px",
-          cursor: disabled ? "not-allowed" : "pointer"
+        className={`
+          w-5 h-5 rounded border-2 border-slate-400 
+          bg-transparent appearance-none cursor-pointer
+          checked:bg-slate-500 checked:border-slate-500
+          relative
+          transition-colors duration-200
+          ${disabled ? "cursor-not-allowed opacity-50" : ""}
+          ${label ? "mr-2" : ""}
+        `}
+        style={{
+          backgroundImage: checked ? `url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e")` : 'none',
+          backgroundSize: '100% 100%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
         }}
       />
-      {label && <span>{label}</span>}
+      {label && <span className="text-white">{label}</span>}
     </label>
   );
 };

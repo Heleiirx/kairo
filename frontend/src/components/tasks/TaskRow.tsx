@@ -25,11 +25,10 @@ export function TaskRow({ task, onToggleComplete, onRowClick }: TaskRowProps) {
       onClick={handleRowClick}
     >
       <div className="grid grid-cols-12 gap-4 items-center">
-        <div className="col-span-4 flex items-center space-x-3">
+        <div className="col-span-4 flex items-center space-x-5">
           <Checkbox
             checked={task.status === "completada"}
             onChange={() => onToggleComplete?.(task._id)}
-            className="border-slate-400 data-[state=checked]:bg-slate-500 data-[state=checked]:border-slate-500"
           />
           <span className={`text-white ${task.status === "completada" ? "line-through" : ""}`}>{task.title}</span>
         </div>

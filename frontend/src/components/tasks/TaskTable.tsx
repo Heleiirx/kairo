@@ -57,7 +57,6 @@ export function TaskTable({ tasks, onToggleComplete, onRowClick }: TaskTableProp
                     e.stopPropagation();
                     onToggleComplete?.(task._id);
                   }}
-                  className="border-slate-400 data-[state=checked]:bg-slate-500 data-[state=checked]:border-slate-500 mt-1"
                 />
                 <h3 className={`font-medium text-white ${task.status === "completada" ? "line-through" : ""}`}>
                   {task.title}
