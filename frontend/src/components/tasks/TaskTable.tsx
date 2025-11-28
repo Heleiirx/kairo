@@ -1,21 +1,12 @@
 import { TaskRow } from "./TaskRow"
 import Checkbox from "../Checkbox"
 import { PriorityIndicator } from "./PriorityIndicator"
-
-interface Task {
-  id: number
-  name: string
-  time: string
-  priority: string
-  project: string
-  category: string
-  completed: boolean
-}
+import { type Task } from "../../types/tasksInterfaces"
 
 interface TaskTableProps {
   tasks: Task[]
-  onToggleComplete?: (id: number) => void
-  onRowClick?: (id: number) => void
+  onToggleComplete?: (id: string) => void
+  onRowClick?: (id: string) => void
 }
 
 export function TaskTable({ tasks, onToggleComplete, onRowClick }: TaskTableProps) {
@@ -39,7 +30,7 @@ export function TaskTable({ tasks, onToggleComplete, onRowClick }: TaskTableProp
         <div className="divide-y divide-slate-600">
           {tasks.map((task) => (
             <TaskRow 
-              key={task.id} 
+              key={task._id} 
               task={task} 
               onToggleComplete={onToggleComplete}
               onRowClick={onRowClick}
@@ -52,31 +43,31 @@ export function TaskTable({ tasks, onToggleComplete, onRowClick }: TaskTableProp
       <div className="md:hidden space-y-3">
         {tasks.map((task) => (
           <div
-            key={task.id}
+            key={task._id}
             className={`bg-primary rounded-lg p-4 transition-colors cursor-pointer ${
-              task.completed ? "opacity-60" : "hover:bg-slate-600"
+              task.status === "completada" ? "opacity-60" : "hover:bg-slate-600"
             }`}
-            onClick={() => onRowClick?.(task.id)}
+            onClick={() => onRowClick?.(task._id)}
           >
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-start gap-3 flex-1">
                 <Checkbox
-                  checked={task.completed}
+                  checked={task.status === "completada"}
                   onChange={(e) => {
                     e.stopPropagation();
-                    onToggleComplete?.(task.id);
+                    onToggleComplete?.(task._id);
                   }}
                   className="border-slate-400 data-[state=checked]:bg-slate-500 data-[state=checked]:border-slate-500 mt-1"
                 />
-                <h3 className={`font-medium text-white ${task.completed ? "line-through" : ""}`}>
-                  {task.name}
+                <h3 className={`font-medium text-white ${task.status === "completada" ? "line-through" : ""}`}>
+                  {task.title}
                 </h3>
               </div>
             </div>
             <div className="space-y-2 text-sm ml-9">
               <div className="flex justify-between items-center">
                 <span className="text-white/60">Time:</span>
-                <span className="text-slate-300">{task.time}</span>
+                <span className="text-slate-300">{task.time || "0:00 hrs"}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-white/60">Priority:</span>
@@ -84,11 +75,11 @@ export function TaskTable({ tasks, onToggleComplete, onRowClick }: TaskTableProp
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-white/60">Project:</span>
-                <span className="text-slate-300">{task.project}</span>
+                <span className="text-slate-300">{task.project?.title || "Unknown"}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-white/60">Category:</span>
-                <span className="text-slate-300">{task.category}</span>
+                <span className="text-slate-300">{task.category || "General"}</span>
               </div>
             </div>
           </div>
