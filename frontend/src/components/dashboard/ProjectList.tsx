@@ -1,4 +1,5 @@
 import { FolderIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface Project {
   id: string;
@@ -13,8 +14,15 @@ interface ProjectListProps {
 function ProjectList({ projects }: ProjectListProps) {
   return (
     <div className="bg-primary rounded-lg p-4 min-h-[280px] md:h-92 flex flex-col overflow-hidden">
-      <p className="text-xs text-secondary mb-2">Statics</p>
-      <h3 className="text-white font-medium text-base mb-3">My projects</h3>
+      <div className="flex items-center justify-between mb-3 flex-shrink-0">
+        <div>
+          <p className="text-xs text-secondary">Statics</p>
+          <h3 className="text-white font-medium text-base">My projects</h3>
+        </div>
+        <Link to="/proyects" className="text-secondary text-xs hover:underline min-h-[44px] flex items-center px-2">
+          Ver todo &gt;
+        </Link>
+      </div>
       <div className="space-y-3 overflow-y-auto flex-1">
         {projects.map((project) => (
           <div key={project.id} className="flex items-start gap-3 p-2 hover:bg-base/50 rounded transition-colors cursor-pointer min-h-[44px]">

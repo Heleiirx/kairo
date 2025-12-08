@@ -5,7 +5,6 @@ import WeekTimeChart from "../components/dashboard/WeekTimeChart";
 import HeatmapChart from "../components/dashboard/HeatmapChart";
 import FocusTimer from "../components/dashboard/FocusTimer";
 import TaskList from "../components/dashboard/TaskList";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function Dashboard() {
   const user = useAuthStore((state) => state.user);
@@ -45,14 +44,6 @@ function Dashboard() {
           <h1 className="text-xl md:text-2xl font-medium mb-1">Welcome back {user?.name}!</h1>
           <p className="text-secondary text-xs md:text-sm">Here you can find a resume of your last days on the app.</p>
         </div>
-        <div className="flex gap-2">
-          <button className="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80">
-            <ChevronLeft className="w-5 h-5 text-white" />
-          </button>
-          <button className="min-w-[44px] min-h-[44px] w-11 h-11 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80">
-            <ChevronRight className="w-5 h-5 text-white" />
-          </button>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-3 mb-3">
@@ -83,12 +74,8 @@ function Dashboard() {
         </div>
       </div>
 
-{/* ---------------------------- */}
-{/* DESKTOP LAYOUT (Your layout) */}
-{/* ---------------------------- */}
 <div className="hidden lg:grid lg:grid-cols-4 lg:grid-rows-4 gap-3 content-center">
 
-  {/* Stat Cards inside grid for desktop only */}
   <div className="grid grid-cols-3 col-span-3 gap-3">
     <StatCard percentage={82} label="Time went this week" color="#CDFF9A" />
     <StatCard percentage={69} label="Finished tasks" color="#CDFF9A" />
@@ -115,7 +102,6 @@ function Dashboard() {
     <HeatmapChart data={heatmapData} />
   </div>
 </div>
-
       
     </div>
   );

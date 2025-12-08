@@ -34,12 +34,38 @@ function FocusTimer() {
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-xs text-secondary">Focus</span>
             <span className="text-2xl font-bold text-white">{time}:00</span>
-            <button
-              onClick={() => setIsRunning(!isRunning)}
-              className="mt-1 min-h-[44px] min-w-[44px] px-4 py-2 border border-secondary text-secondary text-xs rounded hover:bg-secondary hover:text-white transition"
-            >
-              {isRunning ? "Pause" : "Start"}
-            </button>
+            <div className="flex gap-2 mt-2">
+              {!isRunning ? (
+                <button
+                  onClick={() => setIsRunning(true)}
+                  className="w-6 h-6 rounded-full bg-accent hover:bg-secondary/30 flex items-center justify-center transition-colors"
+                  aria-label="Play"
+                >
+                  <svg className="w-3 h-3 text-white ml-0.5" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M3 2v12l10-6L3 2z" />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsRunning(false)}
+                  className="w-6 h-6 rounded-full bg-accent hover:bg-secondary/30 flex items-center justify-center transition-colors"
+                  aria-label="Pause"
+                >
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5 3h2v10H5V3zm4 0h2v10H9V3z" />
+                  </svg>
+                </button>
+              )}
+              <button
+                onClick={() => setIsRunning(false)}
+                className="w-6 h-6 rounded-full bg-accent hover:bg-secondary/30 flex items-center justify-center transition-colors"
+                aria-label="Stop"
+              >
+                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M4 4h8v8H4V4z" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>

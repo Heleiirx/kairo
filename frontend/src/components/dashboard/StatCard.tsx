@@ -5,25 +5,30 @@ interface StatCardProps {
 }
 
 function StatCard({ percentage, label, color = "#95B2EE" }: StatCardProps) {
-  const circumference = 2 * Math.PI * 45;
+  const radius = 28;
+  // Calculate the complete outline of the circle
+  const circumference = 2 * Math.PI * radius;
+  // Calculate how much of the base circle is hidden
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
     <div className="bg-primary rounded-lg p-4 flex items-center gap-3 min-h-[100px] h-16">
       <div className="relative w-16 h-16 flex-shrink-0">
+        {/* Base circle */}
         <svg className="w-16 h-16 transform -rotate-90">
           <circle
             cx="32"
             cy="32"
-            r="28"
+            r={radius}
             stroke="#2A3F5F"
             strokeWidth="6"
             fill="none"
           />
+          {/* Progress circle */}
           <circle
             cx="32"
             cy="32"
-            r="28"
+            r={radius}
             stroke={color}
             strokeWidth="6"
             fill="none"

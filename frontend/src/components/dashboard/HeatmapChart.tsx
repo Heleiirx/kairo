@@ -21,8 +21,8 @@ function HeatmapChart({ data }: HeatmapChartProps) {
           <p className="text-xs text-secondary">Statics</p>
           <h3 className="text-white font-medium text-sm md:text-base">Average weekly time</h3>
         </div>
-        <select className="bg-base text-white text-xs px-3 py-2 md:px-2 md:py-1 rounded border border-secondary min-h-[44px] md:min-h-0">
-          <option>Show all</option>
+        <select className="bg-base text-white text-xs px-3 py-2 md:px-2 md:py-1 rounded min-h-[44px] md:min-h-0 outline-none focus:border-none">
+          <option className="outline-none">Show all</option>
           <option>Last month</option>
         </select>
       </div>

@@ -19,7 +19,7 @@ function WeekTimeChart({ data }: WeekTimeChartProps) {
           <p className="text-xs text-secondary">Statics</p>
           <h3 className="text-white font-medium text-sm md:text-base">Week time of projects</h3>
         </div>
-        <select className="bg-base text-white text-xs px-3 py-2 md:px-2 md:py-1 rounded border border-secondary min-h-[44px] md:min-h-0">
+        <select className="bg-base text-white text-xs px-3 py-2 md:px-2 md:py-1 rounded md:min-h-0  outline-none focus:border-none">
           <option>Week</option>
           <option>Month</option>
         </select>
@@ -33,7 +33,7 @@ function WeekTimeChart({ data }: WeekTimeChartProps) {
               cy="50%"
               innerRadius={40}
               outerRadius={70}
-              paddingAngle={2}
+              paddingAngle={0}
               dataKey="value"
             >
               {data.map((entry, index) => (
