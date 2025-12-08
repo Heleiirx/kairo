@@ -1,10 +1,13 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock, Flag, Users, Edit2, Trash2 } from "lucide-react";
 import { TaskTable } from "../components/tasks/TaskTable";
 import { TaskSidePeek } from "../components/tasks/TaskSidePeek";
 import NewTaskModal from "../components/tasks/NewTaskModal";
-import { sortByCompletion } from "../utils/sortByCompletion";
+import { type Task } from "../types/tasksInterfaces";
+import { type Project } from "../types/projectInterfaces";
+import { getTasksByProject, updateTask, getTaskById } from "../services/tasksActions";
+import { getProjectById } from "../services/projectActions";
 
 function ProjectDetails() {
   const { id } = useParams();
@@ -12,83 +15,48 @@ function ProjectDetails() {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isSidePeekOpen, setIsSidePeekOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<any>(null);
+  const [project, setProject] = useState<Project | null>(null);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingTasks, setLoadingTasks] = useState(true);
 
-  // Mock project data - replace with API call
-  const project = {
-    _id: id,
-    title: "Web Development Project",
-    category: "Work",
-    description: "Complete redesign of the company website with modern UI/UX principles and responsive design",
-    status: "en progreso",
-    priority: "alta",
-    progress: 65,
-    taskCount: 8,
-    timeSpent: 24.5,
-    startDate: "2024-11-01",
-    endDate: "2024-12-31",
-    assignedUsers: [
-      { name: "John Doe", email: "john@example.com" },
-      { name: "Jane Smith", email: "jane@example.com" }
-    ],
-    createdAt: "2024-10-25",
-    updatedAt: "2024-11-20"
+  // Fetch project and tasks on mount
+  useEffect(() => {
+    if (id) {
+      fetchProject();
+      fetchTasks();
+    }
+  }, [id]);
+
+  const fetchProject = async () => {
+    if (!id) return;
+    
+    try {
+      setLoading(true);
+      const projectData = await getProjectById(id);
+      setProject(projectData);
+    } catch (error) {
+      console.error("Failed to fetch project:", error);
+      // Optionally navigate back or show error
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Mock tasks data - replace with API call
-  const [tasks, setTasks] = useState([
-    {
-      id: "1",
-      title: "Design homepage mockup",
-      description: "Create high-fidelity mockups for the new homepage",
-      time: "3:20 hrs",
-      priority: "alta",
-      project: { title: project.title },
-      category: project.category,
-      status: "completada",
-      dueDate: "2024-11-15",
-      createdAt: "2024-11-01",
-      updatedAt: "2024-11-14"
-    },
-    {
-      id: "2",
-      title: "Implement navigation component",
-      description: "Build responsive navigation with mobile menu",
-      time: "2:45 hrs",
-      priority: "alta",
-      project: { title: project.title },
-      category: project.category,
-      status: "en progreso",
-      dueDate: "2024-11-25",
-      createdAt: "2024-11-10",
-      updatedAt: "2024-11-20"
-    },
-    {
-      id: "3",
-      title: "Setup project repository",
-      description: "Initialize Git repository and configure CI/CD",
-      time: "1:30 hrs",
-      priority: "media",
-      project: { title: project.title },
-      category: project.category,
-      status: "completada",
-      dueDate: "2024-11-05",
-      createdAt: "2024-11-01",
-      updatedAt: "2024-11-04"
-    },
-    {
-      id: "4",
-      title: "Create component library",
-      description: "Build reusable UI components with Tailwind",
-      time: "5:15 hrs",
-      priority: "media",
-      project: { title: project.title },
-      category: project.category,
-      status: "pendiente",
-      dueDate: "2024-12-01",
-      createdAt: "2024-11-15",
-      updatedAt: "2024-11-18"
+  const fetchTasks = async () => {
+    if (!id) return;
+    
+    try {
+      setLoadingTasks(true);
+      const tasksData = await getTasksByProject(id);
+      setTasks(tasksData);
+    } catch (error) {
+      console.error("Failed to fetch tasks:", error);
+      setTasks([]);
+    } finally {
+      setLoadingTasks(false);
     }
-  ]);
+  };
 
   const getStatusLabel = (status: string) => {
     switch (status) {
@@ -134,19 +102,34 @@ function ProjectDetails() {
     });
   };
 
-  const handleToggleComplete = (taskId: number) => {
+  const handleToggleComplete = async (taskId: string) => {
+    const task = tasks.find(t => t._id === taskId);
+    if (!task) return;
+
+    // Optimistic update
+    const newStatus = task.status === "completada" ? "pendiente" : "completada";
     setTasks(tasks.map(t =>
-      t.id === taskId.toString()
-        ? { ...t, status: t.status === "completada" ? "pendiente" : "completada" }
-        : t
+      t._id === taskId ? { ...t, status: newStatus } : t
     ));
+
+    try {
+      await updateTask(taskId, { status: newStatus });
+    } catch (error) {
+      console.error("Failed to update task:", error);
+      // Revert on error
+      setTasks(tasks.map(t =>
+        t._id === taskId ? { ...t, status: task.status } : t
+      ));
+    }
   };
 
-  const handleRowClick = (taskId: number) => {
-    const taskData = tasks.find(t => t.id === taskId.toString());
-    if (taskData) {
+  const handleRowClick = async (taskId: string) => {
+    try {
+      const taskData = await getTaskById(taskId);
       setSelectedTask(taskData);
       setTimeout(() => setIsSidePeekOpen(true), 10);
+    } catch (error) {
+      console.error("Failed to fetch task details:", error);
     }
   };
 
@@ -156,23 +139,45 @@ function ProjectDetails() {
   };
 
   const handleTaskCreated = () => {
-    console.log("Task created - refresh would happen here");
+    fetchTasks();
   };
 
-  // Map tasks to display format
-  const displayTasks = useMemo(() => {
-    return tasks.map(task => ({
-      id: parseInt(task.id),
-      name: task.title,
-      time: task.time,
-      priority: task.priority === "alta" ? "High" : task.priority === "media" ? "Medium" : "Low",
-      project: task.project?.title || "Unknown",
-      category: task.category,
-      completed: task.status === "completada"
-    }));
+  // Sort tasks: incomplete first, completed last
+  const sortedTasks = useMemo(() => {
+    return [...tasks].sort((a, b) => {
+      const aCompleted = a.status === "completada";
+      const bCompleted = b.status === "completada";
+      
+      if (aCompleted === bCompleted) return 0;
+      return aCompleted ? 1 : -1;
+    });
   }, [tasks]);
 
-  const sortedTasks = useMemo(() => sortByCompletion(displayTasks), [displayTasks]);
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen bg-base text-white p-4 md:p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-xl">Loading project...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!project) {
+    return (
+      <div className="w-full min-h-screen bg-base text-white p-4 md:p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-xl mb-4">Project not found</div>
+          <button
+            onClick={() => navigate("/proyects")}
+            className="px-4 py-2 bg-secondary rounded-lg hover:bg-secondary/80 transition-colors"
+          >
+            Back to Projects
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen bg-base text-white p-4 md:p-6">
@@ -269,19 +274,25 @@ function ProjectDetails() {
         </div>
 
         {/* Dates */}
-        <div className="grid grid-cols-2 gap-3 md:gap-4 mt-4">
-          <div>
-            <span className="text-xs md:text-sm text-white/60">Start Date</span>
-            <p className="text-white text-sm md:text-base">{formatDate(project.startDate)}</p>
+        {(project.startDate || project.endDate) && (
+          <div className="grid grid-cols-2 gap-3 md:gap-4 mt-4">
+            {project.startDate && (
+              <div>
+                <span className="text-xs md:text-sm text-white/60">Start Date</span>
+                <p className="text-white text-sm md:text-base">{formatDate(project.startDate)}</p>
+              </div>
+            )}
+            {project.endDate && (
+              <div>
+                <span className="text-xs md:text-sm text-white/60">End Date</span>
+                <p className="text-white text-sm md:text-base">{formatDate(project.endDate)}</p>
+              </div>
+            )}
           </div>
-          <div>
-            <span className="text-xs md:text-sm text-white/60">End Date</span>
-            <p className="text-white text-sm md:text-base">{formatDate(project.endDate)}</p>
-          </div>
-        </div>
+        )}
 
         {/* Assigned Users */}
-        {project.assignedUsers.length > 0 && (
+        {project.assignedUsers && project.assignedUsers.length > 0 && (
           <div className="mt-4">
             <div className="flex items-center gap-2 text-white/60 mb-2">
               <Users className="w-4 h-4" />
@@ -311,11 +322,19 @@ function ProjectDetails() {
           </button>
         </div>
 
-        <TaskTable
-          tasks={sortedTasks}
-          onToggleComplete={handleToggleComplete}
-          onRowClick={handleRowClick}
-        />
+        {loadingTasks ? (
+          <div className="text-center py-8 text-white/60">Loading tasks...</div>
+        ) : tasks.length === 0 ? (
+          <div className="text-center py-8 text-white/60">
+            No tasks yet. Create your first task!
+          </div>
+        ) : (
+          <TaskTable
+            tasks={sortedTasks}
+            onToggleComplete={handleToggleComplete}
+            onRowClick={handleRowClick}
+          />
+        )}
       </div>
 
       {/* Modals */}

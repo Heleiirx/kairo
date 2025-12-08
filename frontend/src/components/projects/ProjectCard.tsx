@@ -1,22 +1,9 @@
 import { Maximize2, MoreVertical, Timer } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-export interface Project {
-  id: string;
-  title: string;
-  category: string;
-  tasks: {
-    completed: number;
-    total: number;
-  };
-  time: string;
-  progress: number;
-  color: string;
-  completed: boolean;
-}
+import { type ProjectCardDisplay } from "../../types/projectInterfaces";
 
 interface ProjectCardProps {
-  project: Project;
+  project: ProjectCardDisplay;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {

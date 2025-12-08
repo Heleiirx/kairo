@@ -4,18 +4,13 @@ import FlotatingInput from "../FlotatingInput";
 import { createTask } from "../../services/tasksActions";
 import { getProjectsByUser } from "../../services/projectActions";
 import { useAuthStore } from "../../store/authStore";
+import { type Project } from "../../types/projectInterfaces";
 
 interface NewTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   projectId?: string;
   onTaskCreated?: () => void;
-}
-
-interface Project {
-  _id: string;
-  title: string;
-  category?: string;
 }
 
 function NewTaskModal({ isOpen, onClose, projectId, onTaskCreated }: NewTaskModalProps) {

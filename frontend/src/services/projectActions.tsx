@@ -1,6 +1,7 @@
 import api from "./api";
+import { type Project } from "../types/projectInterfaces";
 
-interface CreateProjectData {
+export interface CreateProjectData {
   title: string;
   description?: string;
   category?: string;
@@ -11,7 +12,7 @@ interface CreateProjectData {
 }
 
 // Get all projects for the authenticated user
-export const getProjects = async () => {
+export const getProjects = async (): Promise<Project[]> => {
   try {
     const response = await api.get("/projects");
     return response.data;
@@ -21,7 +22,7 @@ export const getProjects = async () => {
 };
 
 // Get projects by user ID
-export const getProjectsByUser = async (userId: string) => {
+export const getProjectsByUser = async (userId: string): Promise<Project[]> => {
   try {
     const response = await api.get(`/projects/user/${userId}`);
     return response.data;
@@ -31,7 +32,7 @@ export const getProjectsByUser = async (userId: string) => {
 };
 
 // Get a single project by ID
-export const getProjectById = async (projectId: string) => {
+export const getProjectById = async (projectId: string): Promise<Project> => {
   try {
     const response = await api.get(`/projects/${projectId}`);
     return response.data;
@@ -41,7 +42,7 @@ export const getProjectById = async (projectId: string) => {
 };
 
 // Create a new project
-export const createProject = async (projectData: CreateProjectData) => {
+export const createProject = async (projectData: CreateProjectData): Promise<Project> => {
   try {
     const response = await api.post("/projects", projectData);
     return response.data;
@@ -51,7 +52,7 @@ export const createProject = async (projectData: CreateProjectData) => {
 };
 
 // Update a project
-export const updateProject = async (projectId: string, projectData: Partial<CreateProjectData>) => {
+export const updateProject = async (projectId: string, projectData: Partial<CreateProjectData>): Promise<Project> => {
   try {
     const response = await api.put(`/projects/${projectId}`, projectData);
     return response.data;
@@ -61,7 +62,7 @@ export const updateProject = async (projectId: string, projectData: Partial<Crea
 };
 
 // Delete a project
-export const deleteProject = async (projectId: string) => {
+export const deleteProject = async (projectId: string): Promise<{ message: string }> => {
   try {
     const response = await api.delete(`/projects/${projectId}`);
     return response.data;
@@ -71,7 +72,7 @@ export const deleteProject = async (projectId: string) => {
 };
 
 // Get project with all its tasks
-export const getProjectWithTasks = async (projectId: string) => {
+export const getProjectWithTasks = async (projectId: string): Promise<Project> => {
   try {
     const response = await api.get(`/projects/${projectId}/full`);
     return response.data;

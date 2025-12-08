@@ -1,7 +1,8 @@
-import ProjectCard, { type Project } from "./ProjectCard";
+import ProjectCard from "./ProjectCard";
+import { type ProjectCardDisplay } from "../../types/projectInterfaces";
 
 interface ProjectsGridProps {
-  projects: Project[];
+  projects: ProjectCardDisplay[];
 }
 
 export default function ProjectsGrid({ projects }: ProjectsGridProps) {
