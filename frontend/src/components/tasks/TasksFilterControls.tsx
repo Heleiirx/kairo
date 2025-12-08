@@ -1,0 +1,60 @@
+import { Search, Plus } from "lucide-react";
+import { FilterButton } from "./FiltersButton";
+import { useState } from "react";
+
+interface FilterControlsProps {
+  onNewTaskClick: () => void;
+}
+
+export function FilterControls({ onNewTaskClick }: FilterControlsProps) {
+  const [activeButton, setActiveButton] = useState<string | null>('Last updated');
+
+  const handleButtonClick = (buttonName: string) => {
+    setActiveButton(buttonName);
+  };
+
+  return (
+    <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between py-4 md:py-6 gap-4">
+      {/* Filters - wrap on mobile */}
+      <div className="flex flex-wrap items-center gap-2 md:gap-4">
+        <span className="w-full md:w-auto text-sm md:text-base text-white font-medium">Sort by:</span>
+        <FilterButton
+          isActive={activeButton === 'Last updated'}
+          onClick={() => handleButtonClick('Last updated')}
+        >
+          Last updated
+        </FilterButton>
+        <FilterButton
+          isActive={activeButton === 'Priority'}
+          onClick={() => handleButtonClick('Priority')}
+        >
+          Priority
+        </FilterButton>
+        <FilterButton
+          isActive={activeButton === 'Project'}
+          onClick={() => handleButtonClick('Project')}
+        >
+          Project
+        </FilterButton>
+        <FilterButton
+          isActive={activeButton === 'Category'}
+          onClick={() => handleButtonClick('Category')}
+        >
+          Category
+        </FilterButton>
+        <button className="p-2 hover:bg-secondary/30 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center">
+          <Search className="w-5 h-5 text-slate-300" />
+        </button>
+      </div>
+
+      {/* New task button - full width on mobile */}
+      <button 
+        onClick={onNewTaskClick} 
+        className="flex items-center justify-center gap-2 w-full md:w-auto rounded text-white p-2 md:me-6 hover:bg-secondary/30 min-h-[44px]"
+      >
+        <Plus className="w-4 h-4" />
+        New task
+      </button>
+    </div>
+  )
+}
