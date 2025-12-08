@@ -188,7 +188,7 @@ export default function SideNavBar({ isMobile = false, onClose }: SideNavBarProp
                         ${isExpanded ? 'justify-start w-full' : 'justify-center'}
                     `}
                 >
-                    <LogOut className="w-6 h-6 flex-shrink-0" />
+                    <LogOut className="w-6 h-6 flex-shrink-0 mt-20" />
                     {isExpanded && (
                         <span className="text-base font-medium whitespace-nowrap">
                             Log out
