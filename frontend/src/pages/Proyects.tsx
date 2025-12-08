@@ -5,7 +5,7 @@ import ProjectsGrid from "../components/projects/ProjectsGrid";
 import ProjectsFilterSidebar from "../components/projects/ProjectsFilterSidebar";
 import KanbanView from "../components/projects/KanbanView";
 import NewProjectModal from "../components/projects/NewProjectModal";
-import type { Project } from "../components/projects/ProjectCard";
+import { type ProjectCardDisplay } from "../types/projectInterfaces";
 import type { KanbanProject } from "../components/projects/KanbanColumn";
 import { sortByCompletion } from "../utils/sortByCompletion";
 
@@ -15,7 +15,7 @@ function Proyects() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Mock data - replace with actual data from API
-  const projects: Project[] = [
+  const projects: ProjectCardDisplay[] = [
     {
       id: "1",
       title: "Titulo del proyecto",
