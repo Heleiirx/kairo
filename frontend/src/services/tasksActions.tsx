@@ -21,7 +21,7 @@ interface UpdateTaskData {
 // Create a new task in a project
 export const createTask = async (projectId: string, taskData: CreateTaskData) => {
   try {
-    const response = await api.post(`/projects/${projectId}/tasks`, taskData);
+    const response = await api.post(`/tasks/project/${projectId}`, taskData);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Failed to create task");
@@ -31,7 +31,7 @@ export const createTask = async (projectId: string, taskData: CreateTaskData) =>
 // Get all tasks for a specific project
 export const getTasksByProject = async (projectId: string) => {
   try {
-    const response = await api.get(`/projects/${projectId}/tasks`);
+    const response = await api.get(`/tasks/project/${projectId}`);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Failed to fetch tasks");

@@ -14,7 +14,6 @@ function Tasks() {
   const user = useAuthStore((state) => state.user);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(false);
-  const projectId = "YOUR_PROJECT_ID_HERE";
 
   const fetchTasks = async () => {
     if (!user?.id) {
@@ -104,7 +103,6 @@ function Tasks() {
       <NewTaskModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
-        projectId={projectId}
         onTaskCreated={handleTaskCreated}
       />
       {loading ? (
