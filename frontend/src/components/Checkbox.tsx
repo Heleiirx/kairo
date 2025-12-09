@@ -31,7 +31,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
           w-5 h-5 rounded border-1 border-slate-400 
           bg-transparent appearance-none cursor-pointer
           checked:bg-slate-500 checked:border-slate-500
-          relative
+          relative hover:bg-white/20
           transition-colors duration-200
           ${disabled ? "cursor-not-allowed opacity-50" : ""}
           ${label ? "mr-2" : ""}

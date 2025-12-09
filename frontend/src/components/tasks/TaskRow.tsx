@@ -1,4 +1,4 @@
-import { Clock, MoreHorizontal } from "lucide-react"
+import { Timer, MoreHorizontal } from "lucide-react"
 import Checkbox from "../Checkbox"
 import { PriorityIndicator } from "./PriorityIndicator"
 import { type Task } from "../../types/tasksInterfaces"
@@ -39,11 +39,11 @@ export function TaskRow({ task, onToggleComplete, onRowClick }: TaskRowProps) {
         <div className="col-span-2 text-slate-300 truncate">{task.project?.title}</div>
         <div className="col-span-2 text-slate-300 text-center truncate">{task.category || "General"}</div>
         <div className="col-span-1 flex items-center justify-end space-x-2">
-          <button className="p-1 text-base-contrast hover:bg-slate-500 rounded transition-colors border ">
-            <Clock className="w-4 h-4 text-slate-400" />
+          <button className="p-1 text-base-contrast hover:bg-slate-500 rounded transition-colors bg-white/10 hover:bg-white/20 ">
+            <Timer className="w-5 h-5 text-slate-400" />
           </button>
-          <button className="px-3 hover:bg-slate-500 rounded transition-colors">
-            <MoreHorizontal className="w-4 h-4 text-slate-400" />
+          <button className="p-1 hover:bg-slate-500 rounded transition-colors bg-white/10 hover:bg-white/20">
+            <MoreHorizontal className="w-5 h-5 text-slate-400" />
           </button>
         </div>
       </div>
