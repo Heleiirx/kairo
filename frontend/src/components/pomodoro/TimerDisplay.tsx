@@ -1,10 +1,14 @@
+import SessionIndicator from "./SessionIndicator";
+
 interface TimerDisplayProps {
   timeLeft: number;
   sessionLabel: string;
   mode: "pomodoro" | "flowclock";
+  completedSessions: number;
+  currentSession: "focus" | "short-break" | "long-break";
 }
 
-export default function TimerDisplay({ timeLeft, sessionLabel, mode }: TimerDisplayProps) {
+export default function TimerDisplay({ timeLeft, sessionLabel, mode, completedSessions, currentSession }: TimerDisplayProps) {
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
   const formattedTime = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
@@ -20,15 +24,13 @@ export default function TimerDisplay({ timeLeft, sessionLabel, mode }: TimerDisp
 
   // Calculate dot position (angle in radians) for desktop
   const angle = mode === "pomodoro" ? (1 - progress) * 2 * Math.PI : 0;
-  const dotX = 160 + radius * Math.cos(angle);
-  const dotY = 160 + radius * Math.sin(angle);
   
   // Calculate dot position for mobile
   const mobileDotX = 120 + mobileRadius * Math.cos(angle);
   const mobileDotY = 120 + mobileRadius * Math.sin(angle);
 
   return (
-    <div className="relative flex items-center justify-center mb-6 md:mb-8">
+    <div className="relative flex items-center justify-center mb-6 md:mb-4">
       {/* Desktop SVG */}
       <svg className="hidden md:block w-80 h-80 -rotate-90">
         <circle
@@ -36,7 +38,7 @@ export default function TimerDisplay({ timeLeft, sessionLabel, mode }: TimerDisp
           cy="160"
           r={radius}
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1"
           fill="none"
           className="text-white/20"
         />
@@ -47,19 +49,12 @@ export default function TimerDisplay({ timeLeft, sessionLabel, mode }: TimerDisp
               cy="160"
               r={radius}
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1"
               fill="none"
               className="text-white transition-all duration-1000"
               strokeDasharray={circumference}
               strokeDashoffset={strokeDashoffset}
               strokeLinecap="round"
-            />
-            <circle
-              cx={dotX}
-              cy={dotY}
-              r="6"
-              fill="currentColor"
-              className="text-white transition-all duration-1000"
             />
           </>
         )}
@@ -72,7 +67,7 @@ export default function TimerDisplay({ timeLeft, sessionLabel, mode }: TimerDisp
           cy="120"
           r={mobileRadius}
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="1"
           fill="none"
           className="text-white/20"
         />
@@ -83,7 +78,7 @@ export default function TimerDisplay({ timeLeft, sessionLabel, mode }: TimerDisp
               cy="120"
               r={mobileRadius}
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1"
               fill="none"
               className="text-white transition-all duration-1000"
               strokeDasharray={mobileCircumference}
@@ -105,9 +100,12 @@ export default function TimerDisplay({ timeLeft, sessionLabel, mode }: TimerDisp
         <div className="text-5xl md:text-6xl lg:text-7xl font-medium text-white">
           {formattedTime}
         </div>
-        <div className="text-sm md:text-base text-white/80 mt-1 md:mt-2">
+        <div className="text-sm md:text-white text-white/80 mt-1">
           {sessionLabel}
         </div>
+        {mode === "pomodoro" && (
+          <SessionIndicator completedSessions={completedSessions} currentSession={currentSession} />
+        )}
       </div>
     </div>
   );

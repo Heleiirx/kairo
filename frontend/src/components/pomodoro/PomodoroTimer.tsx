@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import TimerDisplay from "./TimerDisplay";
 import TimerControls from "./TimerControls";
-import SessionIndicator from "./SessionIndicator";
 import { usePictureInPicture } from "../../hooks/usePictureInPicture";
 
 interface PomodoroTimerProps {
@@ -131,6 +130,8 @@ export default function PomodoroTimer({ mode }: PomodoroTimerProps) {
         timeLeft={timeLeft} 
         sessionLabel={getSessionLabel()}
         mode={mode}
+        completedSessions={completedSessions}
+        currentSession={currentSession}
       />
       <TimerControls 
         isRunning={isRunning}
@@ -141,12 +142,6 @@ export default function PomodoroTimer({ mode }: PomodoroTimerProps) {
         isPiPActive={isPiPActive}
         isPiPSupported={isPiPSupported}
       />
-      {mode === "pomodoro" && (
-        <SessionIndicator 
-          completedSessions={completedSessions}
-          currentSession={currentSession}
-        />
-      )}
     </div>
   );
 }

@@ -9,11 +9,11 @@ export default function SessionIndicator({
   const dots = Array.from({ length: 4 }, (_, i) => i);
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+    <div className="flex flex-wrap justify-center gap-2 md:gap-3 mt-2">
       {dots.map((index) => (
         <div
           key={index}
-          className={`h-3 w-3 md:h-4 md:w-4 rounded-full transition-colors ${
+          className={`h-2 w-2 rounded-full transition-colors ${
             index < completedSessions % 4
               ? "bg-white"
               : "bg-white/20"
