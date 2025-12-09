@@ -1,4 +1,4 @@
-import { Play, RotateCcw, X, Pause, PictureInPicture } from "lucide-react";
+import { Play, RotateCcw, X, Pause } from "lucide-react";
 
 interface TimerControlsProps {
   isRunning: boolean;
@@ -15,9 +15,9 @@ export default function TimerControls({
   onPlayPause, 
   onReset, 
   onStop,
-  onTogglePiP,
-  isPiPActive = false,
-  isPiPSupported = false
+  // onTogglePiP,
+  // isPiPActive = false,
+  // isPiPSupported = false
 }: TimerControlsProps) {
   return (
     <div className="flex items-center gap-4 md:gap-6">
