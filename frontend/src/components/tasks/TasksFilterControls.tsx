@@ -8,9 +8,14 @@ interface FilterControlsProps {
 
 export function FilterControls({ onNewTaskClick }: FilterControlsProps) {
   const [activeButton, setActiveButton] = useState<string | null>('Last updated');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleButtonClick = (buttonName: string) => {
     setActiveButton(buttonName);
+  };
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
   };
 
   return (
@@ -42,9 +47,26 @@ export function FilterControls({ onNewTaskClick }: FilterControlsProps) {
         >
           Category
         </FilterButton>
-        <button className="p-2 hover:bg-secondary/30 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center">
-          <Search className="w-5 h-5 text-slate-300" />
-        </button>
+        <div className="relative flex items-center">
+          <div 
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              isSearchOpen ? 'w-64 opacity-100 mr-2' : 'w-0 opacity-0'
+            }`}
+          >
+            <input
+              type="text"
+              placeholder="Search tasks..."
+              className="w-full px-4 py-2 bg-slate-700 text-white rounded-lg border border-slate-600 focus:outline-none focus:border-secondary transition-colors"
+              autoFocus={isSearchOpen}
+            />
+          </div>
+          <button 
+            onClick={toggleSearch}
+            className="p-2 hover:bg-secondary/30 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+          >
+            <Search className="w-5 h-5 text-slate-300" />
+          </button>
+        </div>
       </div>
 
       {/* New task button - full width on mobile */}
