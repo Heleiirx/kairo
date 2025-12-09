@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import Dashboard from './pages/Dashboard.tsx';
-import Proyects from './pages/Proyects.tsx';
+import Proyects from './pages/Projects.tsx';
 import ProjectDetails from './pages/ProjectDetails.tsx';
 import Tasks from './pages/Tasks.tsx';
 import Pomodoro from './pages/Pomodoro.tsx';
