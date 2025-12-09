@@ -159,7 +159,7 @@ export default function SideNavBar({ isMobile = false, onClose }: SideNavBarProp
                             key={item.path}
                             onClick={() => handleNavigation(item.path)}
                             className={`
-                                flex items-center gap-3 p-3 rounded-lg transition-all duration-200
+                                flex items-center gap-3 p-3 rounded-lg transition-all duration-200 outline-none focus:border-none
                                 ${active 
                                     ? 'bg-secondary text-primary font-medium' 
                                     : 'text-secondary hover:bg-secondary/20 hover:text-white'

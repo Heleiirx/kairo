@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import ProjectsHeader from "../components/projects/ProjectsHeader";
 import ProjectsViewTabs from "../components/projects/ProjectsViewTabs";
 import ProjectsGrid from "../components/projects/ProjectsGrid";
 import ProjectsFilterSidebar from "../components/projects/ProjectsFilterSidebar";
@@ -257,7 +256,10 @@ function Proyects() {
 
   return (
     <div className="w-full min-h-screen bg-base text-white p-4 md:p-6">
-      <ProjectsHeader />
+      <div className="mb-4 md:mb-8">
+        <h1 className="text-xl md:text-2xl font-medium mb-1">Your Projects</h1>
+        <p className="text-secondary text-xs md:text-sm">Here you can manage your projects</p>
+      </div>
 
       <ProjectsViewTabs
         activeView={activeView}

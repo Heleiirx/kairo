@@ -28,7 +28,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         id={id}
         disabled={disabled}
         className={`
-          w-5 h-5 rounded border-2 border-slate-400 
+          w-5 h-5 rounded border-1 border-slate-400 
           bg-transparent appearance-none cursor-pointer
           checked:bg-slate-500 checked:border-slate-500
           relative

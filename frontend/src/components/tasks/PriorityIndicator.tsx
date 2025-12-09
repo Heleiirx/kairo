@@ -5,11 +5,11 @@ interface PriorityIndicatorProps {
   export function PriorityIndicator({ priority }: PriorityIndicatorProps) {
     const getPriorityStyle = (priority: string) => {
       switch (priority) {
-        case "High":
+        case "alta":
           return { backgroundColor: "#ef4444" } // red-500
-        case "Medium":
+        case "media":
           return { backgroundColor: "#eab308" } // yellow-500
-        case "Low":
+        case "baja":
           return { backgroundColor: "#22c55e" } // green-500
         default:
           return { backgroundColor: "#6b7280" } // gray-500
