@@ -96,8 +96,8 @@ function Tasks() {
   return (
     <div className="text-white pt-6 py-4">  
       <div>
-        <h1 className="text-3xl font-medium">Your Tasks</h1>
-        <p className="text-white text-base">Here you can manage your tasks</p>
+        <h1 className="text-xl md:text-2xl font-medium mb-1">Your Tasks</h1>
+        <p className="text-secondary text-xs md:text-sm">Here you can manage your tasks</p>
       </div>
       <FilterControls onNewTaskClick={() => setIsModalOpen(true)} />
       <NewTaskModal 

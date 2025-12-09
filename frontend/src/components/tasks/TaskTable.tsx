@@ -13,21 +13,21 @@ export function TaskTable({ tasks, onToggleComplete, onRowClick }: TaskTableProp
   return (
     <>
       {/* Desktop: Table view */}
-      <div className="hidden md:block bg-slate-700 rounded-lg overflow-hidden">
+      <div className="hidden md:block bg-slate-700 rounded-lg overflow-y-auto max-h-[80vh] minimal-scrollbar">
         {/* Table Header */}
-        <div className="bg-primary px-6 py-4">
+        <div className="bg-primary px-6 py-3">
           <div className="grid grid-cols-12 gap-4 text-white font-medium">
             <div className="col-span-4">Name</div>
             <div className="col-span-2">Spend time</div>
-            <div className="col-span-2">Priority</div>
+            <div className="col-span-1">Priority</div>
             <div className="col-span-2">Project</div>
-            <div className="col-span-1">Category</div>
+            <div className="col-span-2 text-center">Category</div>
             <div className="col-span-1"></div>
           </div>
         </div>
 
         {/* Table Body */}
-        <div className="divide-y divide-slate-600">
+        <div className="divide-y divide-white/30">
           {tasks.map((task) => (
             <TaskRow 
               key={task._id} 

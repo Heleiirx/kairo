@@ -17,7 +17,7 @@ export function FilterControls({ onNewTaskClick }: FilterControlsProps) {
     <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between py-4 md:py-6 gap-4">
       {/* Filters - wrap on mobile */}
       <div className="flex flex-wrap items-center gap-2 md:gap-4">
-        <span className="w-full md:w-auto text-sm md:text-base text-white font-medium">Sort by:</span>
+        <span className="w-full md:w-auto text-sm md:text-white text-white font-medium">Sort by:</span>
         <FilterButton
           isActive={activeButton === 'Last updated'}
           onClick={() => handleButtonClick('Last updated')}
@@ -48,11 +48,11 @@ export function FilterControls({ onNewTaskClick }: FilterControlsProps) {
       </div>
 
       {/* New task button - full width on mobile */}
-      <button 
-        onClick={onNewTaskClick} 
-        className="flex items-center justify-center gap-2 w-full md:w-auto rounded text-white p-2 md:me-6 hover:bg-secondary/30 min-h-[44px]"
+      <button
+        onClick={onNewTaskClick}
+        className="w-full md:w-auto flex items-center justify-center gap-2 bg-secondary text-primary px-4 py-2 min-h-[44px] rounded-lg hover:bg-secondary/80 transition-colors font-medium"
       >
-        <Plus className="w-4 h-4" />
+        <Plus className="w-5 h-5" />
         New task
       </button>
     </div>

@@ -25,24 +25,24 @@ export function TaskRow({ task, onToggleComplete, onRowClick }: TaskRowProps) {
       onClick={handleRowClick}
     >
       <div className="grid grid-cols-12 gap-4 items-center">
-        <div className="col-span-4 flex items-center space-x-5">
+        <div className="col-span-4 flex items-center space-x-5 min-w-0">
           <Checkbox
             checked={task.status === "completada"}
             onChange={() => onToggleComplete?.(task._id)}
           />
-          <span className={`text-white ${task.status === "completada" ? "line-through" : ""}`}>{task.title}</span>
+          <span className={`text-white truncate ${task.status === "completada" ? "line-through" : ""}`}>{task.title}</span>
         </div>
         <div className="col-span-2 text-slate-300">{task.time || "0:00 hrs"}</div>
-        <div className="col-span-2">
+        <div className="col-span-1">
           <PriorityIndicator priority={task.priority} />
         </div>
-        <div className="col-span-2 text-slate-300">{task.project?.title}</div>
-        <div className="col-span-1 text-slate-300">{task.category || "General"}</div>
+        <div className="col-span-2 text-slate-300 truncate">{task.project?.title}</div>
+        <div className="col-span-2 text-slate-300 text-center truncate">{task.category || "General"}</div>
         <div className="col-span-1 flex items-center justify-end space-x-2">
-          <button className="p-1 hover:bg-slate-500 rounded transition-colors">
+          <button className="p-1 text-base-contrast hover:bg-slate-500 rounded transition-colors border ">
             <Clock className="w-4 h-4 text-slate-400" />
           </button>
-          <button className="p-1 hover:bg-slate-500 rounded transition-colors">
+          <button className="px-3 hover:bg-slate-500 rounded transition-colors">
             <MoreHorizontal className="w-4 h-4 text-slate-400" />
           </button>
         </div>
