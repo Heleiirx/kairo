@@ -31,7 +31,7 @@ function Proyects() {
       category: "Categoria",
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
-      progress: 82,
+      progress: 54,
       color: "bg-secondary",
       completed: false
     },
@@ -41,7 +41,7 @@ function Proyects() {
       category: "Categoria",
       tasks: { completed: 3, total: 7 },
       time: "3:20 hrs",
-      progress: 82,
+      progress: 17,
       color: "bg-secondary",
       completed: false
     },
@@ -277,7 +277,7 @@ function Proyects() {
       </div>
 
       <div className="flex gap-6">
-        <div className="flex-1">
+        <div className="flex-1 overflow-hidden">
           {activeView === "Board" && <ProjectsGrid projects={sortedProjects} />}
           {activeView === "Kanban" && <KanbanView projects={kanbanProjects} />}
         </div>

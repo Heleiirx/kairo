@@ -80,8 +80,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             Time: <span className="text-white">{project.time}</span>
           </div>
         </div>
-        <button className="p-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
-          <Timer className="w-5 h-5 text-white" />
+        <button className="p-2 text-base-contrast bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+          <Timer className="w-5 h-5" />
         </button>
       </div>
     </div>

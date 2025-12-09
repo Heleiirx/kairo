@@ -6,7 +6,7 @@ interface KanbanViewProps {
 
 export default function KanbanView({ projects }: KanbanViewProps) {
   return (
-    <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory md:snap-none">
+    <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory md:snap-none minimal-scrollbar">
       {projects.map((project) => (
         <KanbanColumn key={project.id} project={project} />
       ))}

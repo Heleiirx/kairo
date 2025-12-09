@@ -65,8 +65,8 @@ export default function KanbanTaskCard({ task }: KanbanTaskCardProps) {
             • {task.priority}
           </span>
         </div>
-        <button className="p-2 md:p-1 bg-white/10 rounded hover:bg-white/20 transition-colors min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center">
-          <Timer className="w-3 h-3 text-white" />
+        <button className="p-2 md:p-1 text-base-contrast bg-white/10 rounded hover:bg-white/20 transition-colors min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center">
+          <Timer className="w-4 h-4" />
         </button>
       </div>
     </div>

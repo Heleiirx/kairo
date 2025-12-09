@@ -11,7 +11,7 @@ export default function ProjectsFilterSidebar({
 }: ProjectsFilterSidebarProps) {
   return (
     <div className="w-full lg:w-64 flex-shrink-0">
-      <h3 className="text-lg font-medium mb-4">All projects</h3>
+      <h3 className="text-lg font-medium mb-4">Filter by</h3>
       {/* Mobile: Horizontal scrolling filter buttons */}
       <div className="lg:hidden flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory">
         {filters.map((filter) => (
