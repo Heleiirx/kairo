@@ -3,12 +3,14 @@ import SideNavBar from '../components/navbar/SideNavBar';
 import ContainerXL from '../components/ContainerXL';
 import { MobileMenuProvider, useMobileMenu } from '../context/MobileMenuContext';
 import { Menu } from 'lucide-react';
+import { ToastContainer } from '../components/ToastContainer';
 
 function PrivateLayoutContent() {
   const { isOpen, toggleMenu, closeMenu } = useMobileMenu();
 
   return (
     <ContainerXL>
+      <ToastContainer />
       <div className="flex min-h-screen">
         {/* Mobile: Hamburger button */}
         <button 

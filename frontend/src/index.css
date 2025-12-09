@@ -11,6 +11,10 @@
   --color-base: #1E2A38;
   --color-base-contrast: #CDFF9A;
   --color-white: #F2F2F2;
+  --color-success: #43aa70;
+  --color-warning: #ffcb00;
+  --color-error: #d83f4b;
+  --color-info: #24a9ef;
 
   --animate-slide: slide 0.3s ease;
 }
