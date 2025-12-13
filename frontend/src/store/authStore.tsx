@@ -1,26 +1,10 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-
-interface AuthState {
-  token: string | null;
-  user: {
-    id: string;
-    name: string;
-    lastname: string;
-    email: string;
-  } | null;
-  login: (token: string, user: {
-    id: string;
-    name: string;
-    lastname: string;
-    email: string;
-  }) => void;
-  logout: () => void;
-}
+import { type AuthState } from "../types/userInterfaces";
 
 const STORAGE_KEY = 'auth-storage';
 
-// Crear el store
+// Crea el store
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
